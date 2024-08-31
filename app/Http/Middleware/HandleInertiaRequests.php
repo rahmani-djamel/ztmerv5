@@ -34,6 +34,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'avatar' => asset('images/avatar.jpg'),
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
