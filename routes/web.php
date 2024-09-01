@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Dashboard\MarketController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +19,22 @@ Route::get('/', function () {
 Route::get('/test', function () {
     return Inertia::render('Test');
 })->name('test');
+
+Route::middleware('auth')->group(function () {
+
+    Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/create', [ProductController::class, 'create'])->name('create');
+    });
+    
+    Route::group(['prefix' => 'market', 'as' => 'market.'], function () {
+        Route::get('/', [MarketController::class, 'index'])->name('index');
+    });
+
+    
+});
+
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
