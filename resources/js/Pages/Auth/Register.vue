@@ -9,8 +9,8 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const roles = ref({
-    3: 'تاجر',
-    4: 'مشتري',
+    4: 'تاجر',
+    3: 'مشتري',
 });
 
 const form = useForm({

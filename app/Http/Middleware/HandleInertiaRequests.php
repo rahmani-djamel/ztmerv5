@@ -35,7 +35,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'avatar' => asset('images/avatar.jpg'),
-                'role' => $request->user()?->roles ? $request->user()->roles : null,
+                'role' => $request->user()?->roles->first()?->name,
                 'permissions' => $request->user()?->permissions->pluck('name'),
             ],
             'ziggy' => fn () => [

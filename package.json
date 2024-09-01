@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@heroicons/vue": "^2.1.5",
-        "pinia": "^2.2.2"
+        "pinia": "^2.2.2",
+        "sweetalert2": "^11.12.4"
     }
 }

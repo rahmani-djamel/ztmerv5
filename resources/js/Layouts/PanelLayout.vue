@@ -4,7 +4,7 @@
     <aside
       class="bg-white shadow-md flex-shrink-0 transition-all duration-300"
       :class="{
-        'w-52 md:w-1/4 lg:w-1/6': isSidebarOpen,
+        'w-full md:w-1/4 lg:w-1/6': isSidebarOpen,
         'w-0 md:w-16 lg:w-16': !isSidebarOpen,
       }"
     >
@@ -18,7 +18,7 @@
           alt="User Image"
           class="w-36 h-12"
         />
-        <Sidebar :isSidebarOpen="isSidebarOpen" class="mt-12" />
+        <Sidebar :isSidebarOpen="isSidebarOpen" :closeSidebar="closeSidebar" class="mt-12" />
       </div>
     </aside>
 
@@ -59,6 +59,11 @@
 
       <!-- Content -->
       <main class="flex-1 overflow-y-auto p-4">
+
+            <!-- Header -->
+
+
+
         <slot></slot>
       </main>
     </div>
@@ -81,6 +86,11 @@ defineProps({
     required: false,
     default: null,
   },
+  pageTitle: {
+    type: String,
+    required: true,
+    default: '',
+  }
 });
 
 const page = usePage();
@@ -92,6 +102,10 @@ const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
 };
 
+const closeSidebar = () => {
+  isSidebarOpen.value = false;
+};
+
 onMounted(() => {
   if (window.innerWidth < 768) {
     isSidebarOpen.value = false;
@@ -100,5 +114,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Add any additional styles here */
+.container {
+  max-width: 1200px;
+}
 </style>
