@@ -1,21 +1,3 @@
-<script setup >
-import { ref } from 'vue';
-import { Head } from '@inertiajs/vue3';
-import PanelLayout from '@/Layouts/PanelLayout.vue';
-import { UserIcon, KeyIcon, BellIcon } from '@heroicons/vue/24/solid';
-// Import the new components
-import Personal from '@/Components/Personal.vue';
-import Password from '@/Components/Settings/Password.vue';
-
-// Define the state for the selected section
-const selectedSection = ref('personalInformation');
-
-// Function to change the selected section
-const selectSection = (section) => {
-  selectedSection.value = section;
-};
-</script>
-
 <template>
   <Head title="الإعدادات" />
 
@@ -58,6 +40,25 @@ const selectSection = (section) => {
     </div>
   </PanelLayout>
 </template>
+
+<script setup >
+import { ref } from 'vue';
+import { Head } from '@inertiajs/vue3';
+import PanelLayout from '@/Layouts/PanelLayout.vue';
+import { UserIcon, KeyIcon, BellIcon } from '@heroicons/vue/24/solid';
+// Import the new components
+import Personal from '@/Components/Settings/Pdata.vue';
+import Password from '@/Components/Settings/Password.vue';
+
+// Define the state for the selected section
+const selectedSection = ref('personalInformation');
+
+// Function to change the selected section
+const selectSection = (section) => {
+  selectedSection.value = section;
+};
+</script>
+
 
 <style scoped>
 /* Add any additional styling here */
