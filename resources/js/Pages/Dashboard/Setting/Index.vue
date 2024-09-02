@@ -4,10 +4,8 @@ import { Head } from '@inertiajs/vue3';
 import PanelLayout from '@/Layouts/PanelLayout.vue';
 import { UserIcon, KeyIcon, BellIcon } from '@heroicons/vue/24/solid';
 // Import the new components
-import PersonalInformation from '@/Components/Settings/Personal.vue';
-import PasswordInformation from '@/Components/Settings/Password.vue';
-import NotificationSettings from '@/Components/Settings/Notification.vue';
-
+import Personal from '@/Components/Settings/Personal.vue';
+import Password from '@/Components/Settings/Password.vue';
 
 // Define the state for the selected section
 const selectedSection = ref('personalInformation');
@@ -64,8 +62,8 @@ const selectSection = (section: string) => {
 
       <!-- Second Column: Content -->
       <div class="w-full md:w-3/4 p-4 bg-white shadow-md">
-        <PersonalInformation v-if="selectedSection === 'personalInformation'" />
-        <PasswordInformation v-if="selectedSection === 'passwordInformation'" />
+        <Personal v-if="selectedSection === 'personalInformation'" />
+        <Password v-if="selectedSection === 'passwordInformation'" />
       </div>
     </div>
   </PanelLayout>
