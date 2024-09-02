@@ -4,9 +4,9 @@ import { Head } from '@inertiajs/vue3';
 import PanelLayout from '@/Layouts/PanelLayout.vue';
 import { UserIcon, KeyIcon, BellIcon } from '@heroicons/vue/24/solid';
 // Import the new components
-import PersonalInformation from '@/Components/Settings/PersonalInformation.vue';
-import PasswordInformation from '@/Components/Settings/PasswordInformation.vue';
-import NotificationSettings from '@/Components/Settings/NotificationSettings.vue';
+import PersonalInformation from '@/Components/Settings/personal.vue';
+import PasswordInformation from '@/Components/Settings/Password.vue';
+import NotificationSettings from '@/Components/Settings/Notification.vue';
 
 
 // Define the state for the selected section
