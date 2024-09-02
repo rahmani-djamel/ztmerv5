@@ -7,10 +7,23 @@
 
       <div class="p-4 mt-2 bg-white rounded-lg shadow-md">
         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-                <Link v-if="can.createMarket" :href="route('product.create')" class="w-full md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                <div class="flex flex-col md:flex-row space-y-2  md:space-y-0 md:space-x-2 mb-2">
+                  <Link v-if="can.createMarket" :href="route('product.create')" class="w-full mx-2 md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                     <PlusIcon class="w-5 h-5 mr-2" />
                     إضافة متجر
-                </Link>
+                  </Link>
+                  <button @click="toggleView" class="w-full md:w-auto flex items-center text-center px-4 py-2 bg-green-700 text-white rounded-md hover:bg-gray-300">
+                    <template v-if="isMapView">
+                      <TableCellsIcon class="w-5 h-5 mx-2" />
+                      عرض كجدول
+                    </template>
+                    <template v-else>
+                      <MapIcon class="w-5 h-5 mx-2" />
+                      عرض كخريطة
+                    </template>
+                  </button>
+                </div>
+
                 <div class="relative w-full md:w-auto">
                     <label for="name" class="absolute -top-2 right-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
                     بحث
@@ -25,7 +38,7 @@
                     />
                 </div>
             </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto" v-show="!isMapView">
           <table class="min-w-full bg-white">
             <thead>
               <tr>
@@ -62,6 +75,16 @@
             </tbody>
           </table>
         </div>
+        <div v-show="isMapView">
+          <GoogleMap
+            api-key="AIzaSyAMFf3ukIr6AdAf3eJLTkvzcuxFoKG4Fac"
+            style="width: 100%; height: 500px"
+            :center="center"
+            :zoom="15"
+            >
+              <Marker :options="{ position: center }" />
+            </GoogleMap>
+        </div>
 
 
       </div>
@@ -72,13 +95,22 @@
   import { ref, watch } from 'vue';
   import PanelLayout from '@/Layouts/PanelLayout.vue';
   import { Head } from '@inertiajs/vue3';
-  import { PlusIcon, PencilIcon, EyeIcon, TrashIcon } from '@heroicons/vue/24/solid';
+  import { PlusIcon, PencilIcon, EyeIcon, TrashIcon,MapIcon, TableCellsIcon } from '@heroicons/vue/24/solid';
   import Pagination from '@/Components/Helper/Pagination.vue';
+  import { GoogleMap, Marker } from 'vue3-google-map'
+
+const center = { lat: 40.689247, lng: -74.044502 }
+
 
   
   const search = ref('');
   const products = ref([]);
 
+  const isMapView = ref(false);
+
+const toggleView = () => {
+  isMapView.value = !isMapView.value;
+};
   defineProps({
     can: Object
   });

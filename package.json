@@ -21,6 +21,7 @@
     "dependencies": {
         "@heroicons/vue": "^2.1.5",
         "pinia": "^2.2.2",
-        "sweetalert2": "^11.12.4"
+        "sweetalert2": "^11.12.4",
+        "vue3-google-map": "^0.21.0"
     }
 }
