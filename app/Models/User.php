@@ -27,6 +27,8 @@ class User extends Authenticatable implements LaratrustUser
         'name',
         'email',
         'password',
+        'phone',
+        'date_of_birth',
     ];
 
     /**
@@ -70,4 +72,11 @@ class User extends Authenticatable implements LaratrustUser
             $query->where('name', $role);
         });
     }
+
+    public function avatar()
+    {
+        return $this->morphOne(File::class, 'fileable');    
+    }
+
+
 }

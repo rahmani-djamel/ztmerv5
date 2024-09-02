@@ -29,7 +29,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
 
-    Route::get('/setting',[SettingController::class,'index'])->name('setting');
+
+    Route::prefix('setting')->as('setting.')->middleware(['role:SuperAdmin|Vendor'])->group(function(){
+        Route::get('/', [SettingController::class, 'index'])->name('index');
+        Route::post('/update/{tab}', [SettingController::class, 'update'])->name('update');
+    });
 
 
     Route::prefix('product')->as('product.')->middleware(['role:SuperAdmin|Vendor'])->group(function(){

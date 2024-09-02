@@ -48,7 +48,6 @@ class CityController extends Controller
 
     public function store()
     {
-        try {
             $validatedData = Request::validate([
                 'name' => ['required'],
                 'state_id' => ['required', 'exists:states,id'],
@@ -57,9 +56,7 @@ class CityController extends Controller
             City::create($validatedData);
     
             return to_route('city.index');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            dd($e->errors());
-        }
+
     }
 
     public function edit(City $city)
@@ -77,7 +74,6 @@ class CityController extends Controller
 
     public function update(City $city)
     {
-        try {
             $validatedData = Request::validate([
                 'name' => ['required'],
                 'state_id' => ['required', 'exists:states,id'],
@@ -86,8 +82,5 @@ class CityController extends Controller
             $city->update($validatedData);
     
             return to_route('city.index');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            dd($e->errors());
-        }
     }
 }

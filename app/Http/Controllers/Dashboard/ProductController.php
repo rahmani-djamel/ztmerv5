@@ -11,7 +11,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Product/Index');
+
+        return Inertia::render('Dashboard/Product/Index',[
+            'can' => [
+                'createProduct' => auth()->user()->hasRole('Vendor'),
+            ]
+        ]);
     }
 
     public function create()

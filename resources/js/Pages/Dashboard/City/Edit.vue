@@ -14,13 +14,13 @@
                 <select id="state" v-model="form.state_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <option v-for="(state, key) in states" :key="key" :value="state.id">{{ state.name }}</option>
                 </select>
-                <InputError class="mt-2" :message="form.errors.state_id" />
+                <div v-if="form.errors.state_id" v-text="form.errors.state_id" class="text-red-500 text-xs mt-1"></div>
 
             </div>
             <div class="mb-4">
                 <label for="city" class="block text-gray-700 text-sm font-bold mb-2">اسم المدينة:</label>
                 <input type="text" id="city" v-model="form.name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                <InputError class="mt-2" :message="form.errors.name" />
+                <div v-if="form.errors.name" v-text="form.errors.name" class="text-red-500 text-xs mt-1"></div>
 
               </div>
             <div class="flex items-center justify-between">
@@ -58,7 +58,7 @@ name:   props.city.name,
 const saveCity = () => {
 // Add your save logic here
 var id = props.city.id;
-router.patch('/city/update/'+id, form)
+form.patch('/city/update/'+id)
 
 };
 </script>

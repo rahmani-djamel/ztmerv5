@@ -10,6 +10,10 @@ class MarketController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Market/Index');
+        return Inertia::render('Dashboard/Market/Index',[
+            'can' => [
+                'createMarket' => auth()->user()->hasRole('Vendor'),
+            ]
+        ]);
     }
 }

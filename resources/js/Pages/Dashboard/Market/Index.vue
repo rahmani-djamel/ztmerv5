@@ -1,9 +1,13 @@
 <template>
     <Head title="المتاجر" />
     <PanelLayout>
-      <div class="p-4 bg-white rounded-lg shadow-md">
+      <Header >
+           المتاجر 
+        </Header>
+
+      <div class="p-4 mt-2 bg-white rounded-lg shadow-md">
         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-                <Link :href="route('product.create')" class="w-full md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                <Link v-if="can.createMarket" :href="route('product.create')" class="w-full md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                     <PlusIcon class="w-5 h-5 mr-2" />
                     إضافة متجر
                 </Link>
@@ -74,6 +78,10 @@
   
   const search = ref('');
   const products = ref([]);
+
+  defineProps({
+    can: Object
+  });
   
   watch(search, (newSearch) => {
     Inertia.post('/products/search', { search: newSearch });

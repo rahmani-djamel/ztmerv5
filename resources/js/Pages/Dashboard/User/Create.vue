@@ -18,7 +18,7 @@
                     اسم المستخدم
                 </label>
                 <input type="text" id="productName" v-model="form.name" class="w-full p-2 border border-gray-300 rounded" />
-                <InputError class="mt-2" :message="Myerrors.name" />
+                <div v-if="form.errors.name" v-text="form.errors.name" class="text-red-500 text-xs mt-1"></div>
 
               </div>
 
@@ -27,7 +27,7 @@
                         البريد الإلكتروني
                     </label>
                     <input type="email" id="productDescription" v-model="form.email" class="w-full p-2 border border-gray-300 rounded" />
-                    <InputError class="mt-2" :message="Myerrors.email" />
+                    <div v-if="form.errors.email" v-text="form.errors.email" class="text-red-500 text-xs mt-1"></div>
 
                 </div>
 
@@ -41,7 +41,7 @@
                         <option value="Vendor">بائع</option>
                         <option value="User">مشتري</option>
                     </select>
-                    <InputError class="mt-2" :message="Myerrors.role" />
+                    <div v-if="form.errors.role" v-text="form.errors.role" class="text-red-500 text-xs mt-1"></div>
 
                 </div>
 
@@ -50,7 +50,7 @@
                         كلمة المرور
                     </label>
                     <input type="password" id="productDescription" v-model="form.password" class="w-full p-2 border border-gray-300 rounded" />
-                    <InputError class="mt-2" :message="Myerrors.password" />
+                    <div v-if="form.errors.password" v-text="form.errors.password" class="text-red-500 text-xs mt-1"></div>
                 </div>
 
 
@@ -81,13 +81,6 @@
     password: '',
     role: '',
 
-  })
-
-  const Myerrors = ref({
-    name: '',
-    email: '',
-    password: '',
-    role: '',
   });
 
    
@@ -96,12 +89,10 @@
     router.post('/user/create', form, {
       onSuccess: () => {
         form.reset();
-      },
-      onError: (errors) => {
-        // Convert errors object to a string
-        Myerrors.value = errors;
-      },
+      }
     });
+
+    form.post('/user/create')
     
   };
   </script>

@@ -34,7 +34,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
-                'avatar' => asset('images/avatar.jpg'),
+                'avatar' => $request->user()?->avatar ? asset($request->user()->avatar->path) : asset('images/avatar.jpg'),
                 'role' => $request->user()?->roles->first()?->name,
                 'permissions' => $request->user()?->permissions->pluck('name'),
             ],
