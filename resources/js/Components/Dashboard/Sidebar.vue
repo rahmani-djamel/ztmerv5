@@ -57,7 +57,7 @@
 <script setup>
 import { ref, defineProps, computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
-import { HomeIcon, ArchiveBoxIcon, BuildingStorefrontIcon, Bars4Icon, ArrowRightStartOnRectangleIcon,UserGroupIcon,MapPinIcon } from '@heroicons/vue/24/solid';
+import { HomeIcon, ArchiveBoxIcon, BuildingStorefrontIcon, Bars4Icon, ArrowRightStartOnRectangleIcon,UserGroupIcon,MapPinIcon, Cog6ToothIcon } from '@heroicons/vue/24/solid';
 
 const page = usePage();
 const user = page.props.auth.user;
@@ -69,6 +69,7 @@ const menuItems = ref([
   { name: 'المتاجر', link: '/market', icon: BuildingStorefrontIcon, component: 'Market', roles: ['SuperAdmin', 'Vendor'], permissions: ['view-markets'] },
   { name: 'المستخدمين', link: '/user', icon: UserGroupIcon, component: 'User', roles: ['SuperAdmin'], permissions: ['view-users'] },
   {name: 'المدن', link: '/city', icon: MapPinIcon, component: 'City', roles: ['SuperAdmin'], permissions: ['view-cities'] },
+  {name: 'الإعدادات', link: '/setting', icon: Cog6ToothIcon, component: 'Setting',  },
   // Add more menu items as needed
 ]);
 

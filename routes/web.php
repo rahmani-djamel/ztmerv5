@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MarketController;
 use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -27,6 +28,9 @@ Route::get('/test', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
+
+    Route::get('/setting',[SettingController::class,'index'])->name('setting');
+
 
     Route::prefix('product')->as('product.')->middleware(['role:SuperAdmin|Vendor'])->group(function(){
         Route::get('/', [ProductController::class, 'index'])->name('index');
@@ -61,10 +65,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
 
 require __DIR__.'/auth.php';
