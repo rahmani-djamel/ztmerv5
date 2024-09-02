@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MarketController;
 use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/create', [ProductController::class, 'create'])->name('create')->middleware('role:Vendor'); 
     });
+
+    Route::prefix('user')->as('user.')->middleware(['role:SuperAdmin'])->group(function(){
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/create', [UserController::class, 'store'])->name('store');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
+
+    });
+
     
     Route::prefix('market')->as('market.')->middleware(['role:SuperAdmin|Vendor'])->group(function () {
         Route::get('/', [MarketController::class, 'index'])->name('index');

@@ -28,6 +28,8 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123456789'),
         ]);
 
+        
+
         $sueperAdmin->addRole(1);
 
         $sueperAdmin = User::create([

@@ -36,6 +36,7 @@
   <script setup>
   import { reactive } from 'vue';
   import PanelLayout from '@/Layouts/PanelLayout.vue';
+  import InputError from '@/Components/InputError.vue';
   import { router } from '@inertiajs/vue3';
   import { Head,useForm } from '@inertiajs/vue3';
 

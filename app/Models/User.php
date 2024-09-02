@@ -51,4 +51,23 @@ class User extends Authenticatable implements LaratrustUser
             'password' => 'hashed',
         ];
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+        });
+    }
+
+    //scope for role in relation
+    public function scopeRole($query, $role)
+    {
+        if (!$role) {
+            return $query;
+        }
+        return $query->whereHas('roles', function ($query) use ($role) {
+            $query->where('name', $role);
+        });
+    }
 }
