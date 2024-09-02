@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import PanelLayout from '@/Layouts/PanelLayout.vue';
 import { UserIcon, KeyIcon, BellIcon } from '@heroicons/vue/24/solid';
 // Import the new components
-import PersonalInformation from '@/Components/Settings/personal.vue';
+import PersonalInformation from '@/Components/Settings/Personal.vue';
 import PasswordInformation from '@/Components/Settings/Password.vue';
 import NotificationSettings from '@/Components/Settings/Notification.vue';
 
