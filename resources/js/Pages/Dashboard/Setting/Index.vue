@@ -1,4 +1,4 @@
-<script setup>
+<script setup >
 import { ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import PanelLayout from '@/Layouts/PanelLayout.vue';
@@ -11,7 +11,7 @@ import Password from '@/Components/Settings/Password.vue';
 const selectedSection = ref('personalInformation');
 
 // Function to change the selected section
-const selectSection = (section: string) => {
+const selectSection = (section) => {
   selectedSection.value = section;
 };
 </script>
@@ -46,17 +46,7 @@ const selectSection = (section: string) => {
             />
             معلومات كلمة المرور
             </li>
-            <li
-            @click="selectSection('notificationSettings')"
-            class="cursor-pointer p-2 hover:bg-gray-100 flex items-center"
-            :class="{ 'bg-sky-500 text-white': selectedSection === 'notificationSettings' }"
-            >
-            <BellIcon
-                class="w-6 h-6 mr-2"
-                :class="{ 'text-sky-500': selectedSection !== 'notificationSettings', 'text-white': selectedSection === 'notificationSettings' }"
-            />
-            إعدادات الإشعارات
-            </li>
+
         </ul>
     </div>
 
