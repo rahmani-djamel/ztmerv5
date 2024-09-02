@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import PanelLayout from '@/Layouts/PanelLayout.vue';
 import { UserIcon, KeyIcon, BellIcon } from '@heroicons/vue/24/solid';
 // Import the new components
-import Personal from '@/Components/Settings/Personal.vue';
+import Personal from '@/Components/Personal.vue';
 import Password from '@/Components/Settings/Password.vue';
 
 // Define the state for the selected section
