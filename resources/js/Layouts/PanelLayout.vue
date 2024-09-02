@@ -12,12 +12,14 @@
         class="p-4 flex flex-col items-center"
         :class="{ 'hidden md:flex': !isSidebarOpen }"
       >
-        <img
-          v-show="isSidebarOpen"
-          src="/images/logo.png"
-          alt="User Image"
-          class="w-36 h-12"
-        />
+      <Link href="/" class="flex items-center mb-4">
+          <img
+            v-show="isSidebarOpen"
+            src="/images/logo.png"
+            alt="User Image"
+            class="w-36 h-12"
+          />
+        </Link>
         <Sidebar :isSidebarOpen="isSidebarOpen" :closeSidebar="closeSidebar" class="mt-12" />
       </div>
     </aside>
@@ -88,7 +90,7 @@ defineProps({
   },
   pageTitle: {
     type: String,
-    required: true,
+    required: false,
     default: '',
   }
 });

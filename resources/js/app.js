@@ -6,6 +6,7 @@ import { createInertiaApp,Link } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import Header from './Components/Helper/Header.vue';
+import Swal from 'sweetalert2';
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -32,6 +33,7 @@ createInertiaApp({
             .use(ZiggyVue)
             .component("Link", Link)
             .component("Header", Header)
+            .component("Swal", Swal)
             .mount(el);
     },
     progress: {

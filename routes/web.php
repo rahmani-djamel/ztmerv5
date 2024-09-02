@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MarketController;
 use App\Http\Controllers\Dashboard\ProductController;
@@ -26,13 +27,21 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
 
-    Route::group(['prefix' => 'product', 'as' => 'product.', 'middelware' => 'ability:Admin|Vendor,manage-products'], function () {
+    Route::prefix('product')->as('product.')->middleware(['role:SuperAdmin|Vendor'])->group(function(){
         Route::get('/', [ProductController::class, 'index'])->name('index');
-        Route::get('/create', [ProductController::class, 'create'])->name('create');
+        Route::get('/create', [ProductController::class, 'create'])->name('create')->middleware('role:Vendor'); 
     });
     
-    Route::group(['prefix' => 'market', 'as' => 'market.'], function () {
+    Route::prefix('market')->as('market.')->middleware(['role:SuperAdmin|Vendor'])->group(function () {
         Route::get('/', [MarketController::class, 'index'])->name('index');
+    });
+    Route::prefix('city')->as('city.')->middleware(['role:SuperAdmin'])->group(function () {
+        Route::get('/', [CityController::class, 'index'])->name('index');
+        Route::get('/create', [CityController::class, 'create'])->name('create');
+        Route::post('/create', [CityController::class, 'store'])->name('store');
+        Route::get('/edit/{city}', [CityController::class, 'edit'])->name('edit');
+        Route::patch('/update/{city}', [CityController::class, 'update'])->name('update');
+        Route::delete('/{city}', [CityController::class, 'destroy'])->name('destroy');
     });
 
     

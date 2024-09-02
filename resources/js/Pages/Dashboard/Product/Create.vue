@@ -1,12 +1,12 @@
 <template>
-  <Head title="إضافة منتج" />
+  <Head title="المدن" />
   <PanelLayout>
     <div class="container mx-auto p-4">
 
       <div class=" p-4 rounded ">
 
         <Header >
-          إضافة منتج
+          المدن
         </Header>
 
 

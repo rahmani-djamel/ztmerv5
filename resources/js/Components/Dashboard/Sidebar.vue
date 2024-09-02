@@ -57,16 +57,18 @@
 <script setup>
 import { ref, defineProps, computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
-import { HomeIcon, ArchiveBoxIcon, BuildingStorefrontIcon, Bars4Icon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/solid';
+import { HomeIcon, ArchiveBoxIcon, BuildingStorefrontIcon, Bars4Icon, ArrowRightStartOnRectangleIcon,UserGroupIcon,MapPinIcon } from '@heroicons/vue/24/solid';
 
 const page = usePage();
 const user = page.props.auth.user;
 const role = page.props.auth.role;
 
 const menuItems = ref([
-  { name: 'الرئيسية', link: '/', icon: HomeIcon, component: 'Home' },
-  { name: 'المنتجات', link: '/product', icon: ArchiveBoxIcon, component: 'Product', roles: ['Admin', 'Vendor'], permissions: ['view-products'] },
-  { name: 'المتاجر', link: '/market', icon: BuildingStorefrontIcon, component: 'Market', roles: ['Admin', 'Vendor'], permissions: ['view-markets'] },
+  { name: 'الرئيسية', link: '/dashboard', icon: HomeIcon, component: 'Home' },
+  { name: 'المنتجات', link: '/product', icon: ArchiveBoxIcon, component: 'Product', roles: ['SuperAdmin', 'Vendor'], permissions: ['view-products'] },
+  { name: 'المتاجر', link: '/market', icon: BuildingStorefrontIcon, component: 'Market', roles: ['SuperAdmin', 'Vendor'], permissions: ['view-markets'] },
+  { name: 'المستخدمين', link: '/user', icon: UserGroupIcon, component: 'User', roles: ['SuperAdmin'], permissions: ['view-users'] },
+  {name: 'المدن', link: '/city', icon: MapPinIcon, component: 'City', roles: ['SuperAdmin'], permissions: ['view-cities'] },
   // Add more menu items as needed
 ]);
 
