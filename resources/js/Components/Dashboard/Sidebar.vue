@@ -57,7 +57,15 @@
 <script setup>
 import { ref, defineProps, computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
-import { HomeIcon, ArchiveBoxIcon, BuildingStorefrontIcon, Bars4Icon, ArrowRightStartOnRectangleIcon,UserGroupIcon,MapPinIcon, Cog6ToothIcon } from '@heroicons/vue/24/solid';
+import { HomeIcon, 
+  ArchiveBoxIcon,
+   BuildingStorefrontIcon,
+    Bars4Icon,
+   ArrowRightStartOnRectangleIcon,
+   UserGroupIcon,MapPinIcon,
+    Cog6ToothIcon,
+  TagIcon,
+  } from '@heroicons/vue/24/solid';
 
 const page = usePage();
 const user = page.props.auth.user;
@@ -65,6 +73,7 @@ const role = page.props.auth.role;
 
 const menuItems = ref([
   { name: 'الرئيسية', link: '/dashboard', icon: HomeIcon, component: 'Home' },
+  { name: 'الأصناف', link: '/category', icon: TagIcon, component: 'Product', roles: ['SuperAdmin'] },
   { name: 'المنتجات', link: '/product', icon: ArchiveBoxIcon, component: 'Product', roles: ['SuperAdmin', 'Vendor'], permissions: ['view-products'] },
   { name: 'المتاجر', link: '/market', icon: BuildingStorefrontIcon, component: 'Market', roles: ['SuperAdmin', 'Vendor'], permissions: ['view-markets'] },
   { name: 'المستخدمين', link: '/user', icon: UserGroupIcon, component: 'User', roles: ['SuperAdmin'], permissions: ['view-users'] },

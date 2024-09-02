@@ -86,12 +86,6 @@
    
   const saveUser = () => {
     // Add your save logic here
-    router.post('/user/create', form, {
-      onSuccess: () => {
-        form.reset();
-      }
-    });
-
     form.post('/user/create')
     
   };

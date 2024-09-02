@@ -55,6 +55,11 @@
               </tr>
             </thead>
             <tbody>
+              <tr v-if="users.data.length === 0">
+                <td colspan="5" class="py-4 text-center text-gray-500">
+                  لا توجد مستخدمين للعرض    
+                  </td>
+              </tr>
               <tr v-for="user in users.data" :key="user.id" class="border-t">
                 <td class="py-2">{{ user.id }}</td>
 

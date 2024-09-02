@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MarketController;
@@ -34,6 +35,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::post('/update/{tab}', [SettingController::class, 'update'])->name('update');
     });
+
+    Route::prefix('category')->as('category.')->middleware(['role:SuperAdmin'])->group(function(){
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('create');
+        Route::post('/create', [CategoryController::class, 'store'])->name('store');
+        Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('edit');
+        Route::post('/update/{category}', [CategoryController::class, 'update'])->name('update');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+    });
+
 
 
     Route::prefix('product')->as('product.')->middleware(['role:SuperAdmin|Vendor'])->group(function(){
