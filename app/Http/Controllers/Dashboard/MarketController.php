@@ -37,9 +37,9 @@ class MarketController extends Controller
         return Inertia::render('Dashboard/Market/Create');
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        $validated = $request->validate([
+        $validated =  Request::validate([
             'market_name' => ['required', 'max:255'],
             'address' => ['required', 'max:255'],
             'city' => ['required', 'max:255'],

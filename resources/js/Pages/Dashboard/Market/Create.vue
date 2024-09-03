@@ -101,6 +101,7 @@ const loader = new Loader({
   version: 'weekly',
   libraries: ['geocoding'],
   language: 'ar',
+  region: 'SA',
 });
 
 const apiPromise = loader.load();
