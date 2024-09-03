@@ -50,6 +50,9 @@
               </tr>
             </thead>
             <tbody>
+              <tr v-if="markets.data.length === 0">
+                <td class="py-2 text-center" colspan="3">لا يوجد متاجر</td>
+              </tr>
               <tr v-for="market in markets.data" :key="market.id" class="border-t">
                 <td class="py-2 flex items-start">
                     <span class="mt-1">{{ market.market_name }}</span>
