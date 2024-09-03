@@ -15,6 +15,24 @@
       <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-6 gap-4">
         <!-- First Column -->
         <div class="bg-white p-4 rounded md:col-span-2">
+          <div class="mb-4" v-show="form.address != ''">
+            <label for="lat" class="block text-gray-700">
+              العنوان
+            </label>
+            <input type="text" disabled id="lat" v-model="form.address" class="w-full p-2 border border-gray-300 bg-slate-300 rounded" />
+          </div>
+          <div class="mb-4" v-show="form.city != ''">
+            <label for="lat" class="block text-gray-700">
+              المدينة
+            </label>
+            <input type="text" disabled id="lat" v-model="form.city" class="w-full p-2 border border-gray-300 bg-slate-300 rounded" />
+          </div>
+          <div class="mb-4" v-show="form.state != ''">
+            <label for="lat" class="block text-gray-700">
+              المحافظة
+            </label>
+            <input type="text" disabled id="lat" v-model="form.state" class="w-full p-2 border border-gray-300 bg-slate-300 rounded" />
+          </div>
           <div class="mb-4" v-show="form.lat != ''">
             <label for="lat" class="block text-gray-700">
               lat
@@ -78,7 +96,14 @@ import { TrashIcon } from '@heroicons/vue/24/solid';
 import { GoogleMap, Marker } from 'vue3-google-map';
 import { Loader } from '@googlemaps/js-api-loader';
 
+const loader = new Loader({
+  apiKey: 'AIzaSyAMFf3ukIr6AdAf3eJLTkvzcuxFoKG4Fac',
+  version: 'weekly',
+  libraries: ['geocoding'],
+  language: 'ar',
+});
 
+const apiPromise = loader.load();
 
 
 const form = useForm({
@@ -86,15 +111,54 @@ const form = useForm({
   phone: '',
   lat: 0,
   lng: 0,
+  address: '',
+  city: '',
+  state: '',
 });
+
+const geocodeLatLng = () => {
+
+  apiPromise.then(() => {
+  const geocoder = new google.maps.Geocoder();
+
+  // Example usage of reverse geocoding
+  const latLng = { lat: form.lat, lng: form.lng }; // Bind lat and lng from form
+
+  geocoder.geocode({ location: latLng }, (results, status) => {
+    if (status === 'OK') {
+      if (results[0]) {
+        console.log("Here is the address for the coordinates you entered: ");
+        console.log(results[0]);
+
+        // Extract formatted address
+        form.address = results[0].formatted_address;
+        console.log("Address: " + form.address);
+
+        // Extract city from the address components
+        const addressComponents = results[0].address_components;
+        const cityComponent = addressComponents.find(component => component.types.includes('locality'));
+        form.city = cityComponent ? cityComponent.long_name : 'N/A';
+        console.log("City: " + form.city);
+
+        // Extract state from the address components
+        const stateComponent = addressComponents.find(component => component.types.includes('administrative_area_level_1'));
+        form.state = stateComponent ? stateComponent.long_name : 'N/A';
+        console.log("State: " + form.state);
+      } else {
+        console.error('No results found');
+      }
+    } else {
+      console.error('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+});
+
+}
+
+
 
 
 const center = ref({
-  lat: 24.7136,
-  lng: 46.6753,
-});
-
-const cordinate = ref({
   lat: 24.7136,
   lng: 46.6753,
 });
@@ -114,6 +178,7 @@ const placeMarker = (event) => {
   };
   form.lat = event.latLng.lat();
   form.lng = event.latLng.lng();
+  geocodeLatLng();
 };
 
 const setPlace = (place) => {

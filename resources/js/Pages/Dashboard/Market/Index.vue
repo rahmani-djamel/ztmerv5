@@ -78,13 +78,22 @@
               :zoom="7"
             >
 
-            <Marker :options="{ position: center }">
+
+            <Marker v-for="n, in markets.data" :key="n.id" :options="{ position: {
+                  lat: parseFloat(n.lat),
+                   lng: parseFloat(n.lng) }
+            } ">
               <InfoWindow>
                 <div id="content">
                   <div id="siteNotice"></div>
-                  <h1 id="firstHeading" class="firstHeading">
-                    موقع المتجر
+                  <h1 id="firstHeading" class="text-lg font-bold">
+                     {{ n.market_name }}
                   </h1>
+                  <a :href="'tel:' + n.phone" class="text-sky-500 hover:text-sky-600">
+                    {{ n.phone }}
+                  </a>
+
+
                   <div id="bodyContent">
                     
                   </div>
@@ -102,7 +111,7 @@
   <script setup>
   import { ref, watch } from 'vue';
   import PanelLayout from '@/Layouts/PanelLayout.vue';
-  import { Head } from '@inertiajs/vue3';
+  import { Head,router, usePage } from '@inertiajs/vue3';
   import { PlusIcon, PencilIcon, EyeIcon, TrashIcon,MapIcon, TableCellsIcon } from '@heroicons/vue/24/solid';
   import Pagination from '@/Components/Helper/Pagination.vue';
   import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
@@ -121,8 +130,6 @@ const toggleInfoWindow = () => {
 
 
   
-  const search = ref('');
-  const products = ref([]);
 
 
   defineProps({
@@ -131,9 +138,24 @@ const toggleInfoWindow = () => {
       type: Object,
       required: true,
     },
+    filters: {
+      type: Object,
+      required: false,
+    },
   });
-  
-  watch(search, (newSearch) => {
-    Inertia.post('/products/search', { search: newSearch });
+
+  const page = usePage();
+  const search = ref(page.props.filters.search);
+
+
+  watch(search, function (value) {    
+  router.visit('/market', {
+    method: 'get',
+    replace: true,
+    preserveState: true,
+    data: {
+      search: value,
+    },
   });
+}, 300);
   </script>

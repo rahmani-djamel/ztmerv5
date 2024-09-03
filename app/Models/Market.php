@@ -17,6 +17,7 @@ class Market extends Model
     protected $fillable = [
         'user_id',
         'market_name',
+        'state',
         'city',
         'address',
         'phone',
@@ -39,4 +40,18 @@ class Market extends Model
     {
         return $this->hasMany(File::class);
     }
+
+    //scope search
+    public function scopeSearch($query, $search)
+    {
+        return $search ? $query->where('market_name', 'like', '%'.$search.'%') : $query;
+    }
+
+    //scope get markets based on user role
+    public function scopeMarkets($query)
+    {
+        return auth()->user()->hasRole('Vendor') ? $query->where('user_id', auth()->id()) : $query;
+    }
+
+
 }
