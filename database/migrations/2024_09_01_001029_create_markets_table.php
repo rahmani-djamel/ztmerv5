@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('market_name');
-            $table->string('city');
-            $table->string('address');
             $table->string('phone');
             $table->decimal('lat', 10, 7);
-            $table->decimal('long', 10, 7);
+            $table->decimal('lng', 10, 7);
             $table->softDeletes();
             $table->timestamps();
         });

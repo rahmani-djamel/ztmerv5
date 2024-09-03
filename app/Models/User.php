@@ -78,5 +78,10 @@ class User extends Authenticatable implements LaratrustUser
         return $this->morphOne(File::class, 'fileable');    
     }
 
+    public function markets()
+    {
+        return $this->hasMany(Market::class);
+    }
+
 
 }

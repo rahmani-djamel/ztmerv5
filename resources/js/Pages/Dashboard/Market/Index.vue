@@ -8,7 +8,7 @@
       <div class="p-4 mt-2 bg-white rounded-lg shadow-md">
         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <div class="flex flex-col md:flex-row space-y-2  md:space-y-0 md:space-x-2 mb-2">
-                  <Link v-if="can.createMarket" :href="route('product.create')" class="w-full mx-2 md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                  <Link v-if="can.createMarket" :href="route('market.create')" class="w-full mx-2 md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                     <PlusIcon class="w-5 h-5 mr-2" />
                     إضافة متجر
                   </Link>
@@ -44,22 +44,17 @@
               <tr>
                 <th class="py-2 text-right">اسم المحل</th>
                 <th class="py-2 text-right">
-                    العنوان
-                </th>
-                <th class="py-2 text-right">
-                    المدينة
+                  رقم الهاتف
                 </th>
                 <th class="py-2 text-right">الإجراءات</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="product in products" :key="product.id" class="border-t">
+              <tr v-for="market in markets.data" :key="market.id" class="border-t">
                 <td class="py-2 flex items-start">
-                    <img :src="product.avatar" alt="الصورة" class="hidden sm:block w-10 h-10 rounded-full mr-2" />
-                    <span class="mt-1">{{ product.name }}</span>
+                    <span class="mt-1">{{ market.market_name }}</span>
                 </td>
-                <td class="py-2">{{ product.price }}</td>
-                <td class="py-2">{{ product.quantity }}</td>
+                <td class="py-2">{{ market.phone }}</td>
                 <td class="py-2 flex space-x-2">
                   <button class="text-blue-500 hover:text-blue-700">
                     <PencilIcon class="w-5 h-5" />
@@ -77,12 +72,25 @@
         </div>
         <div v-show="isMapView">
           <GoogleMap
-            api-key="AIzaSyAMFf3ukIr6AdAf3eJLTkvzcuxFoKG4Fac"
-            style="width: 100%; height: 500px"
-            :center="center"
-            :zoom="15"
+              api-key="AIzaSyAMFf3ukIr6AdAf3eJLTkvzcuxFoKG4Fac"
+              style="width: 100%; height: 500px"
+              :center="center"
+              :zoom="7"
             >
-              <Marker :options="{ position: center }" />
+
+            <Marker :options="{ position: center }">
+              <InfoWindow>
+                <div id="content">
+                  <div id="siteNotice"></div>
+                  <h1 id="firstHeading" class="firstHeading">
+                    موقع المتجر
+                  </h1>
+                  <div id="bodyContent">
+                    
+                  </div>
+                </div>
+              </InfoWindow>
+            </Marker>
             </GoogleMap>
         </div>
 
@@ -97,22 +105,32 @@
   import { Head } from '@inertiajs/vue3';
   import { PlusIcon, PencilIcon, EyeIcon, TrashIcon,MapIcon, TableCellsIcon } from '@heroicons/vue/24/solid';
   import Pagination from '@/Components/Helper/Pagination.vue';
-  import { GoogleMap, Marker } from 'vue3-google-map'
+  import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
 
-const center = { lat: 40.689247, lng: -74.044502 }
+const isMapView = ref(false);
+const center = { lat: 24.7136, lng: 46.6753 };
+const showInfoWindow = ref(false);
+
+const toggleView = () => {
+  isMapView.value = !isMapView.value;
+};
+
+const toggleInfoWindow = () => {
+  showInfoWindow.value = !showInfoWindow.value;
+};
 
 
   
   const search = ref('');
   const products = ref([]);
 
-  const isMapView = ref(false);
 
-const toggleView = () => {
-  isMapView.value = !isMapView.value;
-};
   defineProps({
-    can: Object
+    can: Object,
+    markets: {
+      type: Object,
+      required: true,
+    },
   });
   
   watch(search, (newSearch) => {

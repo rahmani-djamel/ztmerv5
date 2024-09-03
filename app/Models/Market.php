@@ -21,7 +21,7 @@ class Market extends Model
         'address',
         'phone',
         'lat',
-        'long',
+        'lng',
     ];
 
     /**

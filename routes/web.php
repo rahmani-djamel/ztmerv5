@@ -63,6 +63,8 @@ Route::middleware('auth')->group(function () {
     
     Route::prefix('market')->as('market.')->middleware(['role:SuperAdmin|Vendor'])->group(function () {
         Route::get('/', [MarketController::class, 'index'])->name('index');
+        Route::get('/create', [MarketController::class, 'create'])->name('create');
+        Route::post('/create', [MarketController::class, 'store'])->name('store');
     });
     Route::prefix('city')->as('city.')->middleware(['role:SuperAdmin'])->group(function () {
         Route::get('/', [CityController::class, 'index'])->name('index');
