@@ -1,88 +1,88 @@
 <template>
-    <div>
-      <h2 class="text-xl font-bold mb-4 flex items-center">
-        <UserIcon class="w-6 h-6 mr-2 text-sky-500" />
-        المعلومات الشخصية
-      </h2>    
-      <div v-if="form.avatarPreview" class="mt-4">
-        <img :src="form.avatarPreview" alt="Avatar Preview" class="w-32 h-32 object-cover rounded-full mx-auto" />
-      </div>
-  
-      <form @submit.prevent="submitForm">
-        <div class="mb-4">
-          <label for="name" class="block text-gray-700">الاسم</label>
-          <input
-            v-model="form.name"
-            type="text"
-            id="name"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-            required
-          />
-          <div v-if="form.errors.name" v-text="form.errors.name" class="text-red-500 text-xs mt-1"></div>
-        </div>
-        <div class="mb-4">
-          <label for="email" class="block text-gray-700">البريد الإلكتروني</label>
-          <input
-            v-model="form.email"
-            type="email"
-            id="email"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-            required
-          />
-          <div v-if="form.errors.email" v-text="form.errors.email" class="text-red-500 text-xs mt-1"></div>
-        </div>
-        <div class="mb-4">
-          <label for="phone" class="block text-gray-700">رقم الهاتف</label>
-          <input
-            v-model="form.phone"
-            type="tel"
-            id="phone"
-            placeholder="05xxxxxxxx"
-            class="mt-1 block w-full text-start border-gray-300 rounded-md shadow-sm"
-          />
-          <div v-if="form.errors.phone" v-text="form.errors.phone" class="text-red-500 text-xs mt-1"></div>
-        </div>
-  
-        <div class="mb-4">
-          <label for="phone" class="block text-gray-700">
-            تاريخ الميلاد
-          </label>
-          <input
-            v-model="form.date_of_birth"
-            type="date"
-            id="date-of-birth"
-            class="mt-1 block w-full  border-gray-300 rounded-md shadow-sm"
-          />
-          <div v-if="form.errors.birthday" v-text="form.errors.birthday" class="text-red-500 text-xs mt-1"></div>
-        </div>
-        <div class="mb-4">
-          <label for="avatar" class="block text-gray-700">الصورة الشخصية</label>
-          <div
-            class="border-2 border-dashed border-gray-300 p-4 text-center cursor-pointer"
-            @click="triggerFileInput"
-            @dragover.prevent
-            @drop.prevent="handleDrop"
-          >
-            انقر هنا أو اسحب الصورة إلى هنا
-            <input
-              type="file"
-              accept="image/*"
-              class="hidden"
-              ref="fileInput"
-              @change="handleFileChange"
-            />
-          </div>
-          <div v-if="form.errors.avatar" v-text="form.errors.avatar" class="text-red-500 text-xs mt-1"></div>
-        </div>
-        <button
-          type="submit"
-          class="bg-sky-500 text-white px-4 py-2 rounded-md hover:bg-sky-600"
-        >
-          حفظ
-        </button>
-      </form>
+  <div>
+    <h2 class="text-xl font-bold mb-4 flex items-center dark:text-white">
+      <UserIcon class="w-6 h-6 mr-2 text-sky-500" />
+      المعلومات الشخصية
+    </h2>
+    <div v-if="form.avatarPreview" class="mt-4">
+      <img :src="form.avatarPreview" alt="Avatar Preview" class="w-32 h-32 object-cover rounded-full mx-auto" />
     </div>
-  </template>
+
+    <form @submit.prevent="submitForm">
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700 dark:text-gray-300">الاسم</label>
+        <input
+          v-model="form.name"
+          type="text"
+          id="name"
+          class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-100"
+          required
+        />
+        <div v-if="form.errors.name" v-text="form.errors.name" class="text-red-500 dark:text-red-400 text-xs mt-1"></div>
+      </div>
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 dark:text-gray-300">البريد الإلكتروني</label>
+        <input
+          v-model="form.email"
+          type="email"
+          id="email"
+          class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-100"
+          required
+        />
+        <div v-if="form.errors.email" v-text="form.errors.email" class="text-red-500 dark:text-red-400 text-xs mt-1"></div>
+      </div>
+      <div class="mb-4">
+        <label for="phone" class="block text-gray-700 dark:text-gray-300">رقم الهاتف</label>
+        <input
+          v-model="form.phone"
+          type="tel"
+          id="phone"
+          placeholder="05xxxxxxxx"
+          class="mt-1 block w-full text-start border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-100"
+        />
+        <div v-if="form.errors.phone" v-text="form.errors.phone" class="text-red-500 dark:text-red-400 text-xs mt-1"></div>
+      </div>
+
+      <div class="mb-4">
+        <label for="date-of-birth" class="block text-gray-700 dark:text-gray-300">
+          تاريخ الميلاد
+        </label>
+        <input
+          v-model="form.date_of_birth"
+          type="date"
+          id="date-of-birth"
+          class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-100"
+        />
+        <div v-if="form.errors.birthday" v-text="form.errors.birthday" class="text-red-500 dark:text-red-400 text-xs mt-1"></div>
+      </div>
+      <div class="mb-4">
+        <label for="avatar" class="block text-gray-700 dark:text-gray-300">الصورة الشخصية</label>
+        <div
+          class="border-2 border-dashed border-gray-300 dark:border-gray-600 p-4 text-center cursor-pointer dark:bg-gray-700 dark:text-gray-100"
+          @click="triggerFileInput"
+          @dragover.prevent
+          @drop.prevent="handleDrop"
+        >
+          انقر هنا أو اسحب الصورة إلى هنا
+          <input
+            type="file"
+            accept="image/*"
+            class="hidden"
+            ref="fileInput"
+            @change="handleFileChange"
+          />
+        </div>
+        <div v-if="form.errors.avatar" v-text="form.errors.avatar" class="text-red-500 dark:text-red-400 text-xs mt-1"></div>
+      </div>
+      <button
+        type="submit"
+        class="bg-sky-500 text-white px-4 py-2 rounded-md hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-700"
+      >
+        حفظ
+      </button>
+    </form>
+  </div>
+</template>
   
   <script setup>
   import { ref } from 'vue';

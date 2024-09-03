@@ -5,65 +5,64 @@
           الأصناف
         </Header>
 
-      <div class="p-4 bg-white rounded-lg shadow-md">
+      <div class="p-4 bg-white rounded-lg shadow-md  dark:bg-gray-800">
         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <Link :href="route('category.create')" class="w-full md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                     <PlusIcon class="w-5 h-5 mr-2" />
                     إضافة صنف
                 </Link>
                 <div class="relative w-full md:w-auto">
-                    <label for="name"  class="absolute -top-2 right-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
+                  <label for="name" class="absolute -top-2 right-2 inline-block bg-white dark:bg-gray-800 px-1 text-xs font-medium text-gray-900 dark:text-gray-100">
                     بحث
-                    </label>
-                    <input
+                  </label>
+                  <input
                     type="text"
                     name="search"
                     v-model="search"
                     id="name"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm sm:leading-6 dark:bg-gray-300"
                     placeholder="إبحث عن صنف"
-                    />
+                  />
                 </div>
             </div>
         <div class="overflow-x-auto">
-          <table class="min-w-full bg-white">
-            <thead>
-              <tr>
-                <th class="py-2 text-right">ID</th>
-                <th class="py-2 text-right">الاسم</th>
-                <th class="py-2 text-right">الصورة</th>
-                <th class="py-2 text-right">الإجراءات</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-if="categories.data.length === 0">
-                <td colspan="4" class="py-4 text-center text-gray-500">
-                  لا توجد أصناف لعرضها
-                </td>
-              </tr>
-              <tr v-for="category in categories.data" :key="category.id" class="border-t">
-                <td class="py-2">{{ category.id }}</td>
-
-                <td class="py-2">{{ category.name }}</td>
-                <td class="py-2">
-                  <img
-                    :src="category.image"
-                    alt="Category Image"
-                    class="w-10 h-10 object-cover rounded-full cursor-pointer"
-                    @click="showFullSizeImage(category.image)"
-                  />
-                </td>
-                <td class="py-2 flex space-x-2">
-                  <Link type="button" :href="route('category.edit',category.id)" class="text-blue-500 hover:text-blue-700">
-                    <PencilIcon class="w-5 h-5" />
-                  </Link>
-                  <button class="text-red-500 hover:text-red-700" @click="confirmDelete(category.id)">
-                    <TrashIcon class="w-5 h-5" />
-                </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <table class="min-w-full bg-white dark:bg-gray-800">
+  <thead>
+    <tr>
+      <th class="py-2 text-right text-gray-900 dark:text-gray-100">ID</th>
+      <th class="py-2 text-right text-gray-900 dark:text-gray-100">الاسم</th>
+      <th class="py-2 text-right text-gray-900 dark:text-gray-100">الصورة</th>
+      <th class="py-2 text-right text-gray-900 dark:text-gray-100">الإجراءات</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-if="categories.data.length === 0">
+      <td colspan="4" class="py-4 text-center text-gray-500 dark:text-gray-400">
+        لا توجد أصناف لعرضها
+      </td>
+    </tr>
+    <tr v-for="category in categories.data" :key="category.id" class="border-t border-gray-200 dark:border-gray-700">
+      <td class="py-2 text-gray-900 dark:text-gray-100">{{ category.id }}</td>
+      <td class="py-2 text-gray-900 dark:text-gray-100">{{ category.name }}</td>
+      <td class="py-2">
+        <img
+          :src="category.image"
+          alt="Category Image"
+          class="w-10 h-10 object-cover rounded-full cursor-pointer"
+          @click="showFullSizeImage(category.image)"
+        />
+      </td>
+      <td class="py-2 flex space-x-2">
+        <Link type="button" :href="route('category.edit', category.id)" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600">
+          <PencilIcon class="w-5 h-5" />
+        </Link>
+        <button class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600" @click="confirmDelete(category.id)">
+          <TrashIcon class="w-5 h-5" />
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
         </div>
       </div>
       <Pagination :links="categories.links" />

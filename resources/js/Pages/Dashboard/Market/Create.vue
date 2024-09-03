@@ -1,66 +1,66 @@
 <template>
   <Head title="إضافة متجر جديد" />
   <PanelLayout>
-    <div class="container mx-auto p-4">
-      <div class="p-4 rounded">
+    <div class="container mx-auto p-4 bg-gray-100 dark:bg-gray-900">
+      <div class="p-4 rounded bg-white dark:bg-gray-800">
         <Header>
           إضافة متجر جديد
         </Header>
       </div>
       <div v-if="form.errors && Object.keys(form.errors).length > 0" class="mt-4">
-        <div v-for="(error, index) in form.errors" :key="index" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+        <div v-for="(error, index) in form.errors" :key="index" class="bg-red-100 dark:bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
           <span class="block sm:inline">{{ error }}</span>
         </div>
       </div>
       <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-6 gap-4">
         <!-- First Column -->
-        <div class="bg-white p-4 rounded md:col-span-2">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded md:col-span-2">
           <div class="mb-4" v-show="form.address != ''">
-            <label for="lat" class="block text-gray-700">
+            <label for="lat" class="block text-gray-700 dark:text-gray-300">
               العنوان
             </label>
-            <input type="text" disabled id="lat" v-model="form.address" class="w-full p-2 border border-gray-300 bg-slate-300 rounded" />
+            <input type="text" disabled id="lat" v-model="form.address" class="w-full p-2 border border-gray-300 dark:border-gray-600 bg-slate-300 dark:bg-gray-700 rounded" />
           </div>
           <div class="mb-4" v-show="form.city != ''">
-            <label for="lat" class="block text-gray-700">
+            <label for="lat" class="block text-gray-700 dark:text-gray-300">
               المدينة
             </label>
-            <input type="text" disabled id="lat" v-model="form.city" class="w-full p-2 border border-gray-300 bg-slate-300 rounded" />
+            <input type="text" disabled id="lat" v-model="form.city" class="w-full p-2 border border-gray-300 dark:border-gray-600 bg-slate-300 dark:bg-gray-700 rounded" />
           </div>
           <div class="mb-4" v-show="form.state != ''">
-            <label for="lat" class="block text-gray-700">
+            <label for="lat" class="block text-gray-700 dark:text-gray-300">
               المحافظة
             </label>
-            <input type="text" disabled id="lat" v-model="form.state" class="w-full p-2 border border-gray-300 bg-slate-300 rounded" />
+            <input type="text" disabled id="lat" v-model="form.state" class="w-full p-2 border border-gray-300 dark:border-gray-600 bg-slate-300 dark:bg-gray-700 rounded" />
           </div>
           <div class="mb-4" v-show="form.lat != ''">
-            <label for="lat" class="block text-gray-700">
+            <label for="lat" class="block text-gray-700 dark:text-gray-300">
               lat
             </label>
-            <input type="text" disabled id="lat" v-model="form.lat" class="w-full p-2 border border-gray-300 bg-slate-300 rounded" />
+            <input type="text" disabled id="lat" v-model="form.lat" class="w-full p-2 border border-gray-300 dark:border-gray-600 bg-slate-300 dark:bg-gray-700 rounded" />
           </div>
           <div class="mb-4" v-show="form.lng != ''">
-            <label for="lng" class="block text-gray-700">
+            <label for="lng" class="block text-gray-700 dark:text-gray-300">
               lng
             </label>
-            <input type="text" disabled id="lng" v-model="form.lng" class="w-full p-2 border border-gray-300 bg-slate-300 rounded" />
+            <input type="text" disabled id="lng" v-model="form.lng" class="w-full p-2 border border-gray-300 dark:border-gray-600 bg-slate-300 dark:bg-gray-700 rounded" />
           </div>
           <div class="mb-4">
-            <label for="market_name" class="block text-gray-700">
+            <label for="market_name" class="block text-gray-700 dark:text-gray-300">
                 إسم المتجر
             </label>
-            <input type="text"  id="market_name" v-model="form.market_name" class="w-full p-2 border border-gray-300  rounded" />
+            <input type="text" id="market_name" v-model="form.market_name" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100" />
           </div>
           <div class="mb-4">
-            <label for="city" class="block text-gray-700">
+            <label for="city" class="block text-gray-700 dark:text-gray-300">
                رقم الهاتف
             </label>
-            <input type="text"  id="phone" v-model="form.phone" class="w-full p-2 border border-gray-300  rounded" placeholder="05xxxxxxxx" />
+            <input type="text" id="phone" v-model="form.phone" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100" placeholder="05xxxxxxxx" />
           </div>
         </div>
         <!-- Second Column -->
-        <div class="bg-white p-4 rounded md:col-span-4">
-          <h2 class="text-lg font-bold mb-2">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded md:col-span-4">
+          <h2 class="text-lg font-bold mb-2 text-gray-900 dark:text-gray-100">
             🗺️ يرجى تحديد موقع المتجر على الخريطة لتحديد الإحداثيات 📍
           </h2>
           <GoogleMap
@@ -78,7 +78,7 @@
         </div>
         <!-- Submit Button -->
         <div class="md:col-span-6">
-          <button type="submit" class="mt-3 w-full text-white bg-sky-500 text-center p-2 rounded shadow-md md:mt-0 md:mb-3">
+          <button type="submit" class="mt-3 w-full text-white bg-sky-500 dark:bg-sky-600 dark:hover:bg-sky-700 text-center p-2 rounded shadow-md md:mt-0 md:mb-3">
             إضافة المتجر
           </button>
         </div>

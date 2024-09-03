@@ -1,95 +1,93 @@
 <template>
-    <Head title="المدن" />
-    <PanelLayout>
-        <Header >
-          المستخدمين
-        </Header>
+  <Head title="المدن" />
+  <PanelLayout>
+    <Header>
+      المستخدمين
+    </Header>
 
-      <div class="p-4 bg-white rounded-lg shadow-md">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-                <Link :href="route('user.create')" class="w-full md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                    <PlusIcon class="w-5 h-5 mr-2" />
-                    إضافة مستخدم
-                </Link>
-                <div class="relative w-full md:w-auto flex items-center">
-                    <div class="relative w-full md:w-auto mr-2">
-                        <label for="name" class="absolute -top-2 right-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
-                            بحث
-                        </label>
-                        <input
-                            type="text"
-                            name="search"
-                            v-model="search"
-                            id="name"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            placeholder="إبحث عن مستخدم"
-                        />
-                    </div>
-                    <div class="relative w-full md:w-auto mx-2">
-                        <label for="role" class="absolute -top-2 right-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
-                            دور
-                        </label>
-                        <select
-                            name="role"
-                            v-model="role"
-                            id="role"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        >
-                            <option value="">الكل</option>
-                            <option value="SuperAdmin">أدمين</option>
-                            <option value="Vendor">بائع</option>
-                            <option value="User">مشتري</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        <div class="overflow-x-auto">
-          <table class="min-w-full bg-white">
-            <thead>
-              <tr>
-                <th class="py-2 text-right">ID</th>
-                <th class="py-2 text-right">الاسم</th>
-                <th class="py-2 text-right">البريد الإلكتروني</th>
-                <th class="py-2 text-right">الدور</th>
-                <th class="py-2 text-right">الإجراءات</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-if="users.data.length === 0">
-                <td colspan="5" class="py-4 text-center text-gray-500">
-                  لا توجد مستخدمين للعرض    
-                  </td>
-              </tr>
-              <tr v-for="user in users.data" :key="user.id" class="border-t">
-                <td class="py-2">{{ user.id }}</td>
-
-                <td class="py-2">{{ user.name }}</td>
-                <td class="py-2">{{ user.email }}</td>
-                <td class="py-2">
-                    <span
-                        :class="{
-                        'bg-blue-500 text-white px-2 py-1 rounded': user.role === 'أدمين',
-                        'bg-green-500 text-white px-2 py-1 rounded': user.role === 'مشتري',
-                        'bg-gray-500 text-white px-2 py-1 rounded': user.role === 'بائع'
-                        }"
-                    >
-                        {{ user.role }}
-                    </span>
-                </td>
-                <td class="py-2 flex space-x-2">
-                  <button v-if="Authuser.id != user.id && !user.is_admin " class="text-red-500 hover:text-red-700" @click="confirmDelete(user.id)">
-                    <TrashIcon class="w-5 h-5" />
-                </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+        <Link :href="route('user.create')" class="w-full md:w-auto flex items-center text-center mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+          <PlusIcon class="w-5 h-5 mr-2" />
+          إضافة مستخدم
+        </Link>
+        <div class="relative w-full md:w-auto flex items-center">
+          <div class="relative w-full md:w-auto mr-2">
+            <label for="name" class="absolute -top-2 right-2 inline-block bg-white dark:bg-gray-800 px-1 text-xs font-medium text-gray-900 dark:text-gray-100">
+              بحث
+            </label>
+            <input
+              type="text"
+              name="search"
+              v-model="search"
+              id="name"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm sm:leading-6 dark:bg-gray-700"
+              placeholder="إبحث عن مستخدم"
+            />
+          </div>
+          <div class="relative w-full md:w-auto mx-2">
+            <label for="role" class="absolute -top-2 right-2 inline-block bg-white dark:bg-gray-800 px-1 text-xs font-medium text-gray-900 dark:text-gray-100">
+              دور
+            </label>
+            <select
+              name="role"
+              v-model="role"
+              id="role"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm sm:leading-6 dark:bg-gray-700"
+            >
+              <option value="">الكل</option>
+              <option value="SuperAdmin">أدمين</option>
+              <option value="Vendor">بائع</option>
+              <option value="User">مشتري</option>
+            </select>
+          </div>
         </div>
       </div>
-      <Pagination :links="users.links" />
-
-    </PanelLayout>
-  </template>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white dark:bg-gray-800">
+          <thead>
+            <tr>
+              <th class="py-2 text-right text-gray-900 dark:text-gray-100">ID</th>
+              <th class="py-2 text-right text-gray-900 dark:text-gray-100">الاسم</th>
+              <th class="py-2 text-right text-gray-900 dark:text-gray-100">البريد الإلكتروني</th>
+              <th class="py-2 text-right text-gray-900 dark:text-gray-100">الدور</th>
+              <th class="py-2 text-right text-gray-900 dark:text-gray-100">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-if="users.data.length === 0">
+              <td colspan="5" class="py-4 text-center text-gray-500 dark:text-gray-400">
+                لا توجد مستخدمين للعرض
+              </td>
+            </tr>
+            <tr v-for="user in users.data" :key="user.id" class="border-t border-gray-200 dark:border-gray-700">
+              <td class="py-2 text-gray-900 dark:text-gray-100">{{ user.id }}</td>
+              <td class="py-2 text-gray-900 dark:text-gray-100">{{ user.name }}</td>
+              <td class="py-2 text-gray-900 dark:text-gray-100">{{ user.email }}</td>
+              <td class="py-2">
+                <span
+                  :class="{
+                    'bg-blue-500 text-white px-2 py-1 rounded': user.role === 'أدمين',
+                    'bg-green-500 text-white px-2 py-1 rounded': user.role === 'مشتري',
+                    'bg-gray-500 text-white px-2 py-1 rounded': user.role === 'بائع'
+                  }"
+                >
+                  {{ user.role }}
+                </span>
+              </td>
+              <td class="py-2 flex space-x-2">
+                <button v-if="Authuser.id != user.id && !user.is_admin" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600" @click="confirmDelete(user.id)">
+                  <TrashIcon class="w-5 h-5" />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <Pagination :links="users.links" />
+  </PanelLayout>
+</template>
   
   <script setup>
   import { ref, watch } from 'vue';

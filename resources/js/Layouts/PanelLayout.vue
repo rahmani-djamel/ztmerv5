@@ -1,8 +1,8 @@
 <template>
-  <div class="flex h-screen bg-gray-100">
+  <div class="flex h-screen bg-gray-100 dark:bg-gray-900" :class="{'dark': isDarkMode}">
     <!-- Sidebar -->
     <aside
-      class="bg-white shadow-md flex-shrink-0 transition-all duration-300"
+      class="bg-white dark:bg-gray-800 shadow-md flex-shrink-0 transition-all duration-300"
       :class="{
         'w-full md:w-1/4 lg:w-1/6': isSidebarOpen,
         'w-0 md:w-16 lg:w-16': !isSidebarOpen,
@@ -12,7 +12,7 @@
         class="p-4 flex flex-col items-center"
         :class="{ 'hidden md:flex': !isSidebarOpen }"
       >
-      <Link href="/" class="flex items-center mb-4">
+        <Link href="/" class="flex items-center mb-4">
           <img
             v-show="isSidebarOpen"
             src="/images/logo.png"
@@ -25,12 +25,12 @@
     </aside>
 
     <!-- Main content -->
-    <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="flex-1 flex flex-col overflow-hidden bg-white dark:bg-gray-800">
       <!-- Header -->
-      <header class="bg-white shadow-md p-4 flex justify-between items-center">
+      <header class="bg-white dark:bg-gray-800 shadow-md p-4 flex justify-between items-center">
         <button
           @click="toggleSidebar"
-          class="text-gray-500 focus:outline-none"
+          class="text-gray-500 dark:text-gray-300 focus:outline-none"
         >
           <svg
             class="w-6 h-6"
@@ -48,7 +48,15 @@
           </svg>
         </button>
         <div class="relative">
-          <button class="text-gray-500 focus:outline-none">
+          <button
+            @click="toggleDarkMode"
+            class="text-gray-500 dark:text-gray-300 focus:outline-none ml-4 p-2 rounded-full"
+          >
+            <SunIcon v-if="isDarkMode" class="h-6 w-6" />
+            <MoonIcon v-else class="h-6 w-6" />
+          </button>
+
+          <button class="text-gray-500 dark:text-gray-300 focus:outline-none">
             <img
               :src="avatar"
               alt="User Image"
@@ -60,12 +68,7 @@
       </header>
 
       <!-- Content -->
-      <main class="flex-1 overflow-y-auto p-4">
-
-            <!-- Header -->
-
-
-
+      <main class="flex-1 overflow-y-auto p-4 bg-gray-100 dark:bg-gray-900">
         <slot></slot>
       </main>
     </div>
@@ -76,6 +79,7 @@
 import { ref, computed, onMounted } from 'vue';
 import Sidebar from '@/Components/Dashboard/Sidebar.vue';
 import { usePage } from '@inertiajs/vue3';
+import { SunIcon, MoonIcon } from '@heroicons/vue/24/solid';
 
 defineProps({
   user: {
@@ -100,6 +104,22 @@ const avatar = computed(() => page.props.auth.avatar);
 
 const isSidebarOpen = ref(true);
 
+const isDarkMode = ref(false);
+
+const toggleDarkMode = () => {
+  isDarkMode.value = !isDarkMode.value;
+  localStorage.setItem('darkMode', isDarkMode.value);
+  applyDarkMode();
+};
+
+const applyDarkMode = () => {
+  if (isDarkMode.value) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+};
+
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
 };
@@ -112,6 +132,8 @@ onMounted(() => {
   if (window.innerWidth < 768) {
     isSidebarOpen.value = false;
   }
+  isDarkMode.value = localStorage.getItem('darkMode') === 'true';
+  applyDarkMode();
 });
 </script>
 

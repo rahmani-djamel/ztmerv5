@@ -4,36 +4,35 @@
   <PanelLayout>
     <div class="flex flex-col md:flex-row">
       <!-- First Column: Navigation -->
-      <div class="w-full md:w-1/5 p-4 border-r mx-auto bg-white shadow-md mb-4 md:mb-0">
+      <div class="w-full md:w-1/5 p-4 border-r mx-auto bg-white dark:bg-gray-800 shadow-md mb-4 md:mb-0">
         <ul>
-            <li
+          <li
             @click="selectSection('personalInformation')"
-            class="cursor-pointer p-2 hover:bg-gray-100 flex items-center"
-            :class="{ 'bg-sky-500 text-white': selectedSection === 'personalInformation' }"
-            >
+            class="cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+            :class="{ 'bg-sky-500 text-white': selectedSection === 'personalInformation', 'dark:bg-sky-500 dark:text-white': selectedSection === 'personalInformation' }"
+          >
             <UserIcon
-                class="w-6 h-6 mr-2"
-                :class="{ 'text-sky-500': selectedSection !== 'personalInformation', 'text-white': selectedSection === 'personalInformation' }"
+              class="w-6 h-6 mr-2"
+              :class="{ 'text-sky-500': selectedSection !== 'personalInformation', 'text-white': selectedSection === 'personalInformation', 'dark:text-sky-500': selectedSection !== 'personalInformation', 'dark:text-white': selectedSection === 'personalInformation' }"
             />
             المعلومات الشخصية
-            </li>
-            <li
+          </li>
+          <li
             @click="selectSection('passwordInformation')"
-            class="cursor-pointer p-2 hover:bg-gray-100 flex items-center"
-            :class="{ 'bg-sky-500 text-white': selectedSection === 'passwordInformation' }"
-            >
+            class="cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+            :class="{ 'bg-sky-500 text-white': selectedSection === 'passwordInformation', 'dark:bg-sky-500 dark:text-white': selectedSection === 'passwordInformation' }"
+          >
             <KeyIcon
-                class="w-6 h-6 mr-2"
-                :class="{ 'text-sky-500': selectedSection !== 'passwordInformation', 'text-white': selectedSection === 'passwordInformation' }"
+              class="w-6 h-6 mr-2"
+              :class="{ 'text-sky-500': selectedSection !== 'passwordInformation', 'text-white': selectedSection === 'passwordInformation', 'dark:text-sky-500': selectedSection !== 'passwordInformation', 'dark:text-white': selectedSection === 'passwordInformation' }"
             />
             معلومات كلمة المرور
-            </li>
-
+          </li>
         </ul>
-    </div>
+      </div>
 
       <!-- Second Column: Content -->
-      <div class="w-full md:w-3/4 p-4 bg-white shadow-md">
+      <div class="w-full md:w-3/4 p-4 bg-white dark:bg-gray-800 shadow-md">
         <Personal v-if="selectedSection === 'personalInformation'" />
         <Password v-if="selectedSection === 'passwordInformation'" />
       </div>
