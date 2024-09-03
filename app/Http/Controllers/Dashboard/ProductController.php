@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -21,6 +23,11 @@ class ProductController extends Controller
 
     public function create()
     {
-        return Inertia::render('Dashboard/Product/Create');
+        $categories = Category::all();
+        $unites = Unit::all();
+        return Inertia::render('Dashboard/Product/Create',[
+            'categories' => $categories,
+            'units' => $unites
+        ]);
     }
 }

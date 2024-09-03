@@ -19,8 +19,16 @@
               <textarea id="description" v-model="description" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100"></textarea>
             </div>
             <div class="mb-4">
-              <label for="city" class="block text-gray-700 dark:text-gray-300">المدينة</label>
-              <input type="text" id="city" v-model="city" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100" />
+              <label for="city" class="block text-gray-700 dark:text-gray-300">الصنف</label>
+              <select id="state" v-model="form.category" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
+                <option v-for="(category, key) in categories" :key="key" :value="category.id">{{ category.name }}</option>
+              </select>            
+            </div>
+            <div class="mb-4">
+              <label for="city" class="block text-gray-700 dark:text-gray-300">الوحدة</label>
+              <select id="state" v-model="form.unit" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
+                <option v-for="(unit, key) in units" :key="key" :value="unit.id">{{ unit.name }}</option>
+              </select>            
             </div>
             <div class="mb-4">
               <label for="qte" class="block text-gray-700 dark:text-gray-300">الكمية</label>
@@ -70,7 +78,7 @@
 import { ref } from 'vue';
 import Swal from 'sweetalert2';
 import PanelLayout from '@/Layouts/PanelLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 
 import { TrashIcon } from '@heroicons/vue/24/solid';
 
@@ -80,6 +88,22 @@ const city = ref('');
 const qte = ref('');
 const price = ref('');
 const images = ref([]);
+
+const form = useForm({
+  category:'',
+  unit: ''
+})
+
+defineProps({
+  categories:{
+    type: Object,
+    required: true
+  },
+  units:{
+    type:Object,
+    required:true
+  }
+})
 
 const submitForm = () => {
   // Handle form submission
