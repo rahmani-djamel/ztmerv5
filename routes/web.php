@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MarketController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\UnitController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -63,9 +64,26 @@ Route::middleware('auth')->group(function () {
     
     Route::prefix('market')->as('market.')->middleware(['role:SuperAdmin|Vendor'])->group(function () {
         Route::get('/', [MarketController::class, 'index'])->name('index');
-        Route::get('/create', [MarketController::class, 'create'])->name('create');
-        Route::post('/create', [MarketController::class, 'store'])->name('store');
+        Route::get('/create', [MarketController::class, 'create'])->name('create')->middleware('role:Vendor');
+        Route::post('/create', [MarketController::class, 'store'])->name('store')->middleware('role:Vendor');
+        Route::get('/edit/{market}', [MarketController::class, 'edit'])->name('edit')->middleware('role:Vendor');
+        Route::patch('/update/{market}', [MarketController::class, 'update'])->name('update')->middleware('role:Vendor');
+        Route::delete('/{market}', [MarketController::class, 'destroy'])->name('destroy')->middleware('role:Vendor');
     });
+
+    Route::prefix('unit')->as('unit.')->middleware(['role:SuperAdmin'])->group(function () {
+        Route::get('/', [UnitController::class, 'index'])->name('index');
+        Route::get('/create', [UnitController::class, 'create'])->name('create');
+        Route::post('/create', [UnitController::class, 'store'])->name('store');
+        Route::get('/edit/{unit}', [UnitController::class, 'edit'])->name('edit');
+        Route::patch('/update/{unit}', [UnitController::class, 'update'])->name('update');
+        Route::delete('/{unit}', [UnitController::class, 'destroy'])->name('destroy');
+
+    });
+
+
+    
+
     Route::prefix('city')->as('city.')->middleware(['role:SuperAdmin'])->group(function () {
         Route::get('/', [CityController::class, 'index'])->name('index');
         Route::get('/create', [CityController::class, 'create'])->name('create');

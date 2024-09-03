@@ -37,6 +37,15 @@ class MarketController extends Controller
         return Inertia::render('Dashboard/Market/Create');
     }
 
+    public function destroy(Market $market)
+    {
+        $market->delete();
+
+        return redirect()->route('market.index');
+    }
+
+
+
     public function store()
     {
         $validated =  Request::validate([
@@ -51,12 +60,39 @@ class MarketController extends Controller
 
 
         $market = auth()->user()->markets()->create($validated);
-
-
-
-
-
-
         return redirect()->route('market.index')->with('success', 'Market created successfully');
+    }
+
+    public function edit(Market $market)
+    {
+        return Inertia::render('Dashboard/Market/Edit', [
+            'market' => [
+                'id' => $market->id,
+                'market_name' => $market->market_name,
+                'address' => $market->address,
+                'city' => $market->city,
+                'state' => $market->state,
+                'lat' => $market->lat,
+                'lng' => $market->lng,
+                'phone' => $market->phone,
+            ],
+        ]);
+    }
+
+    public function update(Market $market)
+    {
+        $validated = Request::validate([
+            'market_name' => ['required', 'max:255'],
+            'address' => ['required', 'max:255'],
+            'city' => ['required', 'max:255'],
+            'state' => ['required', 'max:255'],
+            'lat' => ['required', 'numeric'],
+            'lng' => ['required', 'numeric'],
+            'phone' => ['required', 'max:255'],
+        ]);
+
+        $market->update($validated);
+
+        return redirect()->route('market.index')->with('success', 'Market updated successfully');
     }
 }

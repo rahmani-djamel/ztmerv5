@@ -64,7 +64,8 @@ import { HomeIcon,
    ArrowRightStartOnRectangleIcon,
    UserGroupIcon,MapPinIcon,
     Cog6ToothIcon,
-  TagIcon,
+    ScaleIcon,
+    TagIcon,
   } from '@heroicons/vue/24/solid';
 
 const page = usePage();
@@ -78,7 +79,8 @@ const menuItems = ref([
   { name: 'المتاجر', link: '/market', icon: BuildingStorefrontIcon, component: 'Market', roles: ['SuperAdmin', 'Vendor'], permissions: ['view-markets'] },
   { name: 'المستخدمين', link: '/user', icon: UserGroupIcon, component: 'User', roles: ['SuperAdmin'], permissions: ['view-users'] },
   {name: 'المدن', link: '/city', icon: MapPinIcon, component: 'City', roles: ['SuperAdmin'], permissions: ['view-cities'] },
-  {name: 'الإعدادات', link: '/setting', icon: Cog6ToothIcon, component: 'Setting',  },
+  {name: 'وحدات الوزن', link: '/unit', icon: ScaleIcon, component: 'State', roles: ['SuperAdmin'], permissions: ['view-states'] },
+  {name: 'الحساب', link: '/setting', icon: Cog6ToothIcon, component: 'Setting',  },
   // Add more menu items as needed
 ]);
 

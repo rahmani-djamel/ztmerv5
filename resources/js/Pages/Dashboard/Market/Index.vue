@@ -59,15 +59,12 @@
                 </td>
                 <td class="py-2">{{ market.phone }}</td>
                 <td class="py-2 flex space-x-2">
-                  <button class="text-blue-500 hover:text-blue-700">
+                  <Link type="button" :href="route('market.edit',market.id)" class="text-blue-500 hover:text-blue-700">
                     <PencilIcon class="w-5 h-5" />
-                  </button>
-                  <button class="text-green-500 hover:text-green-700">
-                    <EyeIcon class="w-5 h-5" />
-                  </button>
-                  <button class="text-red-500 hover:text-red-700">
+                  </Link>
+                  <button v-if="can.createMarket" class="text-red-500 hover:text-red-700" @click="confirmDelete(market.id)">
                     <TrashIcon class="w-5 h-5" />
-                  </button>
+                </button>
                 </td>
               </tr>
             </tbody>
@@ -115,9 +112,11 @@
   import { ref, watch } from 'vue';
   import PanelLayout from '@/Layouts/PanelLayout.vue';
   import { Head,router, usePage } from '@inertiajs/vue3';
-  import { PlusIcon, PencilIcon, EyeIcon, TrashIcon,MapIcon, TableCellsIcon } from '@heroicons/vue/24/solid';
+  import { PlusIcon, PencilIcon, TrashIcon,MapIcon, TableCellsIcon } from '@heroicons/vue/24/solid';
   import Pagination from '@/Components/Helper/Pagination.vue';
   import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
+  import Swal from 'sweetalert2';
+
 
 const isMapView = ref(false);
 const center = { lat: 24.7136, lng: 46.6753 };
@@ -149,6 +148,30 @@ const toggleInfoWindow = () => {
 
   const page = usePage();
   const search = ref(page.props.filters.search);
+
+  const confirmDelete = (marketId) => {
+        Swal.fire({
+            title: 'هل أنت متأكد؟',
+            text: 'لن تتمكن من التراجع عن هذا!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'نعم، احذفها!',
+            cancelButtonText: 'إلغاء'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                router.delete(route('market.destroy', marketId));
+
+                Swal.fire(
+                    'تم الحذف!',
+                    'تم حذف المتجر بنجاح.',
+                    'success'
+                );
+            }
+        });
+    }
 
 
   watch(search, function (value) {    
