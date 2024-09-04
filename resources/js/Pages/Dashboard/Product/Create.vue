@@ -57,9 +57,7 @@
             </div>
           </div>
             <!-- File Upload Section -->
-            <h1 v-if="form.progress" class="text-red-500 font-bold">
-              {{ form.progress.percentage }}%
-            </h1>
+
 
             <div class="md:col-span-1 p-2 bg-white dark:bg-gray-800">
               <div
@@ -86,6 +84,11 @@
             </div>
           <!-- Submit Button -->
           <div class="md:col-span-3">
+            <div v-if="form.progress" class="w-full bg-gray-200 dark:bg-gray-700 rounded-full mb-2">
+              <div class="bg-sky-500 dark:bg-sky-600 text-xs leading-none py-1 text-center text-white rounded-full" :style="{ width: form.progress.percentage + '%' }">
+                {{ form.progress.percentage  }}%
+              </div>
+            </div>
             <button type="submit" class="mt-3 w-full text-white bg-sky-500 dark:bg-sky-600 dark:hover:bg-sky-700 text-center p-1 rounded shadow-md md:mt-0 md:mb-3">
               إضافة المنتج
             </button>
@@ -153,6 +156,15 @@ defineProps({
 
 const submitForm = () => {
   // Handle form submission
+  form.post('/product/create', {
+    onSuccess: () => {
+      Swal.fire('تمت العملية بنجاح!', 'تمت إضافة المنتج بنجاح.', 'success');
+      form.reset();
+    },
+    onError: (errors) => {
+      Swal.fire('حدث خطأ!', 'يرجى التحقق من البيانات المدخلة.', 'error');
+    },
+  });
 };
 
 const handleDrop = (event) => {

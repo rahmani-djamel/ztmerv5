@@ -51,7 +51,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('product')->as('product.')->middleware(['role:SuperAdmin|Vendor'])->group(function(){
         Route::get('/', [ProductController::class, 'index'])->name('index');
-        Route::get('/create', [ProductController::class, 'create'])->name('create')->middleware('role:Vendor'); 
+        Route::get('/create', [ProductController::class, 'create'])->name('create')->middleware('role:Vendor');
+        Route::post('/create', [ProductController::class, 'store'])->name('store')->middleware('role:Vendor'); 
     });
 
     Route::prefix('user')->as('user.')->middleware(['role:SuperAdmin'])->group(function(){

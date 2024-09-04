@@ -33,4 +33,23 @@ class ProductController extends Controller
             'units' => $unites
         ]);
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'category_id' => 'required',
+            'unit_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'media' => 'required|array',
+            'media.*' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:6144', // 6144 KB = 6 MB
+        ]);
+
+
+
+        return redirect()->route('dashboard');
+    }
 }
