@@ -16,6 +16,7 @@ class File extends Model
         'type',
         'size',
         'path',
+        'order',
     ];
     public function fileable()
     {

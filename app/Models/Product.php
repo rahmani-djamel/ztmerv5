@@ -67,5 +67,17 @@ class Product extends Model
             return auth()->user()->hasRole('Vendor') ? $query->where('user_id', auth()->id()) : $query;
         }
 
+        //scope get products based on category
+        public function scopeCategoryfilter($query, $category)
+        {
+            return $category ? $query->where('category_id', $category) : $query;
+        }
+
+        //scope get products based on vendor
+        public function scopeVendorfilter($query, $vendor)
+        {
+            return $vendor ? $query->where('user_id', $vendor) : $query;
+        }
+
 
 }

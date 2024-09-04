@@ -11,6 +11,33 @@
           <PlusIcon class="w-5 h-5 mr-2" />
           إضافة منتج
         </Link>
+        <div class="flex space-x-4">
+          <div class="flex flex-col mb-4 mx-2">
+            <label class="mb-2 text-gray-900 dark:text-gray-100" v-if="!can.createProduct">
+              إختيار لبائع
+            </label>
+            <select v-if="!can.createProduct"  v-model="selectedvendor" class="w-full md:w-auto rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm sm:leading-6 dark:bg-gray-700">
+              <option value="">الكل</option>
+              <option v-for="(vendor,index) in vendors" :value="vendor">
+                {{ index }}
+              </option>
+            </select>
+          </div>
+
+          <div class="flex flex-col mb-4" >
+            <label class="mb-2 text-gray-900 dark:text-gray-100">
+              إختيار الصنف
+            </label>
+            <select v-model="selectedcategory" class="w-full md:w-auto rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm sm:leading-6 dark:bg-gray-700">
+              <option value="">الكل</option>
+              <option v-for="category in categories" :value="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
+
+
+        </div>
         <div class="relative w-full md:w-auto">
           <label for="name" class="absolute -top-2 right-2 inline-block bg-white dark:bg-gray-800 px-1 text-xs font-medium text-gray-900 dark:text-gray-100">
             بحث
@@ -52,7 +79,7 @@
               <td class="py-2 text-gray-900 dark:text-gray-100">{{ product.price }}</td>
               <td class="py-2 text-gray-900 dark:text-gray-100">{{ product.qte }}</td>
 
-              <td class="py-2 flex space-x-2">
+              <td class="py-2 flex space-x-2" v-if="can.createProduct" >
                 <Link type="button" :href="route('product.edit', product.id)" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600">
                   <PencilIcon class="w-5 h-5" />
                 </Link>
@@ -65,6 +92,8 @@
         </table>
       </div>
     </div>
+    <Pagination :links="products.links" />
+
   </PanelLayout>
 </template>
   
@@ -79,10 +108,15 @@
   
   let props = defineProps({
   products: Object,
+  categories: Object,
+  vendors: Object,
   can: Object,
+  filters: Object,
 });
   
-let search = ref('');
+let search = ref(props.filters.search);
+let selectedcategory = ref(props.filters.selectedcategory);
+let selectedvendor = ref(props.filters.selectedvendor);
 
 const confirmDelete = (productId) => {
         Swal.fire({
@@ -108,15 +142,15 @@ const confirmDelete = (productId) => {
         });
     }
 
-watch(search, function (value) {
-    console.log(value);
-    
+watch([search,selectedcategory,selectedvendor], function (value) {    
   router.visit('/product', {
     method: 'get',
     replace: true,
     preserveState: true,
     data: {
-      search: value,
+      search: search.value,
+      selectedcategory: selectedcategory.value,
+      selectedvendor: selectedvendor.value,
     },
   });
 }, 300);
