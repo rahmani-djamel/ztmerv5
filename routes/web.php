@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MarketController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\StateController;
 use App\Http\Controllers\Dashboard\UnitController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\ProfileController;
@@ -80,6 +81,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{unit}', [UnitController::class, 'destroy'])->name('destroy');
 
     });
+
+    Route::prefix('state')->as('state.')->middleware(['role:Vendor'])->group(function () {
+        Route::get('/{stateId}/cities', [StateController::class, 'getCities'])->name('index');
+
+
+    });
+
 
 
     
