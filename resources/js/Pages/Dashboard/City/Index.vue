@@ -31,7 +31,7 @@
             <tr>
               <th class="py-2 text-right text-gray-900 dark:text-gray-100">ID</th>
               <th class="py-2 text-right text-gray-900 dark:text-gray-100">الاسم</th>
-              <th class="py-2 text-right text-gray-900 dark:text-gray-100">المحافظة</th>
+              <th class="py-2 text-right text-gray-900 dark:text-gray-100">المنطقة</th>
               <th class="py-2 text-right text-gray-900 dark:text-gray-100">الإجراءات</th>
             </tr>
           </thead>

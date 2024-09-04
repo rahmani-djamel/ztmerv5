@@ -10,7 +10,7 @@
       <div class="col-span-3 bg-white dark:bg-gray-800 p-6 rounded shadow-md">
         <form @submit.prevent="saveCity">
           <div class="mb-4">
-            <label for="state" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">اختر المقاطعة:</label>
+            <label for="state" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">اختر المنطقة:</label>
             <select id="state" v-model="form.state_id" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
               <option v-for="(state, key) in states" :key="key" :value="state.id">{{ state.name }}</option>
             </select>
