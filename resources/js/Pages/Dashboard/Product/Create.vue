@@ -13,75 +13,96 @@
             <div class="mb-4">
               <label for="productName" class="block text-gray-700 dark:text-gray-300">اسم المنتج</label>
               <input type="text" id="productName" v-model="form.name" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100" />
+              <div v-if="form.errors.name" class="text-red-500 text-xs mt-1">{{ form.errors.name }}</div>
             </div>
             <div class="mb-4">
               <label for="city" class="block text-gray-700 dark:text-gray-300">الصنف</label>
-              <select id="state" v-model="form.category" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
+              <select id="state" v-model="form.category_id" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
                 <option v-for="(category, key) in categories" :key="key" :value="category.id">{{ category.name }}</option>
-              </select>            
+              </select>   
+              <div v-if="form.errors.category_id" class="text-red-500 text-xs mt-1">{{ form.errors.category_id }}</div>         
             </div>
-            <div class="mb-4">
-              <label for="city" class="block text-gray-700 dark:text-gray-300">الوحدة</label>
-              <select id="state" v-model="form.unit" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
-                <option v-for="(unit, key) in units" :key="key" :value="unit.id">{{ unit.name }}</option>
-              </select>            
-            </div>
+
             <div class="mb-4">
               <label for="city" class="block text-gray-700 dark:text-gray-300">
                 منطقة الإنتاج
               </label>
-              <select id="state" v-model="form.state" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
+              <select id="state" v-model="form.state_id" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
                 <option v-for="(state, key) in states" :key="key" :value="state.id">{{ state.name }}</option>
-              </select>            
+              </select> 
+              <div v-if="form.errors.state_id" class="text-red-500 text-xs mt-1">{{ form.errors.state_id }}</div>                    
             </div>
             <div v-if="showCities" class="mb-4">
               <label for="city" class="block text-gray-700 dark:text-gray-300">
                 المدينة
               </label>
-              <select id="city" v-model="form.city" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
+              <select id="city" v-model="form.city_id" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
                 <option v-for="(city, key) in cities" :key="key" :value="city.id">{{ city.name }}</option>
+              </select>    
+              <div v-if="form.errors.city_id" class="text-red-500 text-xs mt-1">{{ form.errors.city_id }}</div>                            
+            </div>
+            <div class="mb-4">
+              <label for="city" class="block text-gray-700 dark:text-gray-300">الوحدة</label>
+              <select id="state" v-model="form.unit_id" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
+                <option v-for="(unit, key) in units" :key="key" :value="unit.id">{{ unit.name }}</option>
               </select>            
+              <div v-if="form.errors.unit_id" class="text-red-500 text-xs mt-1">{{ form.errors.unit_id }}</div>                            
+
             </div>
             <div class="mb-4">
               <label for="qte" class="block text-gray-700 dark:text-gray-300">الكمية</label>
               <input type="number" id="qte" v-model="form.qte" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100" />
+              <div v-if="form.errors.qte" class="text-red-500 text-xs mt-1">{{ form.errors.qte }}</div>                            
+
             </div>
             <div class="mb-4">
               <label for="price" class="block text-gray-700 dark:text-gray-300">السعر</label>
               <input type="number" id="price" v-model="form.price" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100" />
+              <div v-if="form.errors.price" class="text-red-500 text-xs mt-1">{{ form.errors.price }}</div>                            
+
             </div>
 
             <div class="mb-4">
               <label for="description" class="block text-gray-700 dark:text-gray-300">الوصف</label>
               <textarea id="description" v-model="form.description" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100"></textarea>
+              <div v-if="form.errors.description" class="text-red-500 text-xs mt-1">{{ form.errors.description }}</div>                            
             </div>
           </div>
             <!-- File Upload Section -->
-
-
             <div class="md:col-span-1 p-2 bg-white dark:bg-gray-800">
-              <div
-                class="border-2 border-dashed border-gray-300 dark:border-gray-600 p-4 rounded cursor-pointer"
-                @dragover.prevent
-                @drop.prevent="handleDrop"
-                @click="handleClick"
-              >
-                <div class="mb-4" @click.stop>
-                  <label for="media" class="block text-center text-gray-700 dark:text-gray-300">الصور والفيديوهات</label>
-                  <input type="file" id="media" ref="fileInputRef" @change="uploadMedia" class="hidden" accept="image/*,video/*" multiple />
-                </div>
-                <p class="text-center text-gray-500 dark:text-gray-400">اسحب وأفلت الصور أو الفيديوهات هنا أو انقر للتحميل</p>
+              <div v-if="form.errors.media" class="text-red-500 text-xs mt-1">{{ form.errors.media }}</div>                            
+            <div
+              class="border-2 border-dashed border-gray-300 dark:border-gray-600 p-4 rounded cursor-pointer"
+              @dragover.prevent
+              @drop.prevent="handleDrop"
+              @click="handleClick"
+            >
+              <div class="mb-4" @click.stop>
+                <label for="media" class="block text-center text-gray-700 dark:text-gray-300">الصور والفيديوهات</label>
+                <input type="file" id="media" ref="fileInputRef" @change="uploadMedia" class="hidden" accept="image/*,video/*" multiple />
               </div>
-              <div v-if="form.media.length" class="mt-4 grid grid-cols-3 gap-2">
-                <div v-for="(media, index) in form.media" :key="index" class="relative mb-2">
-                  <img v-if="media.file.type.startsWith('image/')" :src="media.preview" alt="الصورة" class="w-full h-24 object-cover rounded cursor-pointer" @click="previewMedia(media)" />
-                  <video v-if="media.file.type.startsWith('video/')" :src="media.preview" class="w-full h-24 object-cover rounded cursor-pointer" @click="previewMedia(media)" />
-                  <button @click="removeMedia(index)" class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full">
-                    <TrashIcon class="h-5 w-5" />
-                  </button>
-                </div>
+              <p class="text-center text-gray-500 dark:text-gray-400">
+                اسحب وأفلت الصور أو الفيديوهات هنا أو انقر للتحميل (الحد الأقصى 5 ملفات، كل ملف حتى 6 ميجا)
+              </p>
+            </div>
+            <div v-if="form.media.length" class="mt-4 grid grid-cols-3 gap-2">
+              <div
+                v-for="(media, index) in form.media"
+                :key="index"
+                class="relative mb-2"
+                draggable="true"
+                @dragstart="dragStart(index)"
+                @dragover.prevent
+                @drop="drop(index)"
+              >
+                <img v-if="media.file.type.startsWith('image/')" :src="media.preview" alt="الصورة" class="w-full h-24 object-cover rounded cursor-pointer" @click="previewMedia(media)" />
+                <video v-if="media.file.type.startsWith('video/')" :src="media.preview" class="w-full h-24 object-cover rounded cursor-pointer" @click="previewMedia(media)" />
+                <button @click="removeMedia(index)" type="button" class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full">
+                  <TrashIcon class="h-5 w-5" />
+                </button>
               </div>
             </div>
+          </div>
           <!-- Submit Button -->
           <div class="md:col-span-3">
             <div v-if="form.progress" class="w-full bg-gray-200 dark:bg-gray-700 rounded-full mb-2">
@@ -109,10 +130,10 @@ import axios from 'axios';
 
 const form = useForm({
   name: '',
-  category: '',
-  unit: '',
-  state: '',
-  city: '',
+  category_id: '',
+  unit_id: '',
+  state_id: '',
+  city_id: '',
   qte: '',
   price: '',
   description: '',
@@ -122,14 +143,14 @@ const form = useForm({
 const showCities = ref(false);
 const cities = ref([]);
 const fileInputRef = ref(null);
-
+let draggedIndex = null;
 
 const fetchCities = async (stateId) => {
   const response = await axios.get(`/state/${stateId}/cities`);
   cities.value = response.data;
 };
 
-watch(() => form.state, async (newState) => {
+watch(() => form.state_id, async (newState) => {
   if (newState) {
     await fetchCities(newState);
     showCities.value = true;
@@ -155,8 +176,26 @@ defineProps({
 });
 
 const submitForm = () => {
+  // Check if the number of files exceeds 5
+  if (form.media.length > 5) {
+    Swal.fire('حدث خطأ!', 'لا يمكن تحميل أكثر من 5 ملفات.', 'error');
+    return;
+  }
+
+  // Check if any file exceeds 6 MB
+  for (let media of form.media) {
+    if (media.file.size > 6 * 1024 * 1024) { // 6 MB in bytes
+      Swal.fire('حدث خطأ!', `الملف ${media.file.name} أكبر من 6 ميجا.`, 'error');
+      return;
+    }
+  }
+
   // Handle form submission
   form.post('/product/create', {
+    preserveScroll: true,
+    onBefore: () => {
+      form.progress = { percentage: 0 };
+    },
     onSuccess: () => {
       Swal.fire('تمت العملية بنجاح!', 'تمت إضافة المنتج بنجاح.', 'success');
       form.reset();
@@ -225,6 +264,17 @@ const previewMedia = (media) => {
       showConfirmButton: false,
     });
   }
+};
+
+const dragStart = (index) => {
+  draggedIndex = index;
+};
+
+const drop = (index) => {
+  const draggedItem = form.media[draggedIndex];
+  form.media.splice(draggedIndex, 1);
+  form.media.splice(index, 0, draggedItem);
+  draggedIndex = null;
 };
 
 </script>

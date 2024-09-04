@@ -53,6 +53,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/create', [ProductController::class, 'create'])->name('create')->middleware('role:Vendor');
         Route::post('/create', [ProductController::class, 'store'])->name('store')->middleware('role:Vendor'); 
+        Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('edit')->middleware('role:Vendor');
+        Route::post('/update/{product}', [ProductController::class, 'update'])->name('update')->middleware('role:Vendor');
+        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy')->middleware('role:Vendor');
     });
 
     Route::prefix('user')->as('user.')->middleware(['role:SuperAdmin'])->group(function(){
