@@ -66,6 +66,7 @@ import { HomeIcon,
     Cog6ToothIcon,
     ScaleIcon,
     TagIcon,
+    GiftTopIcon
   } from '@heroicons/vue/24/solid';
 
 const page = usePage();
@@ -80,6 +81,9 @@ const menuItems = ref([
   { name: 'المستخدمين', link: '/user', icon: UserGroupIcon, component: 'User', roles: ['SuperAdmin'], permissions: ['view-users'] },
   {name: 'المدن', link: '/city', icon: MapPinIcon, component: 'City', roles: ['SuperAdmin'], permissions: ['view-cities'] },
   {name: 'وحدات الوزن', link: '/unit', icon: ScaleIcon, component: 'State', roles: ['SuperAdmin'], permissions: ['view-states'] },
+  {name: 'التغليف', link: '/package', icon: GiftTopIcon, component: 'State', roles: ['SuperAdmin'], permissions: ['view-states'] },
+
+
   {name: 'الحساب', link: '/setting', icon: Cog6ToothIcon, component: 'Setting',  },
   // Add more menu items as needed
 ]);

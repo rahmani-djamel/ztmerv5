@@ -15,11 +15,13 @@ class Product extends Model
         'description',
         'price',
         'qte',
+        'weight',
         'category_id',
         'unit_id',
         'state_id',
         'city_id',
         'user_id',
+        'package_id',
     ];
 
         // Define relationships
@@ -51,6 +53,13 @@ class Product extends Model
         public function media()
         {
             return $this->morphMany(File::class, 'fileable');
+        }
+
+        //package relation
+
+        public function package()
+        {
+            return $this->belongsTo(Package::class);
         }
 
         public function scopeSearch($query, $search)

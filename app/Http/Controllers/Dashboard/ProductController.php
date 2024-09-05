@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Package;
 use App\Models\Product;
 use App\Models\Role;
 use App\Models\State;
@@ -54,10 +55,12 @@ class ProductController extends Controller
         $categories = Category::all();
         $unites = Unit::all();
         $states = State::all();
+        $packages = Package::all();
         return Inertia::render('Dashboard/Product/Create',[
             'categories' => $categories,
             'states' => $states,
-            'units' => $unites
+            'units' => $unites,
+            'packages' => $packages
         ]);
     }
 
@@ -71,12 +74,14 @@ class ProductController extends Controller
             'category_id' => 'required',
             'unit_id' => 'required',
             'state_id' => 'required',
+            'package_id' => 'required',
             'city_id' => 'required',
+            'weight' => 'required',
             'media' => 'required|array|min:1',
             'media.*.file' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:6144', // 6144 KB = 6 MB
         ]);
         
-        $product = auth()->user()->products()->create($request->only('name', 'description', 'price', 'category_id', 'unit_id', 'state_id', 'qte','city_id'));
+        $product = auth()->user()->products()->create($request->only('name', 'description', 'price', 'category_id', 'unit_id', 'state_id','weight','package_id', 'qte','city_id'));
         
         foreach ($request->media as $key => $media) {
             $file = $media['file'];
@@ -98,6 +103,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $unites = Unit::all();
         $states = State::all();
+        $packages = Package::all();
         return Inertia::render('Dashboard/Product/Edit', [
             'product' => [
                 'id' => $product->id,
@@ -108,6 +114,8 @@ class ProductController extends Controller
                 'category_id' => $product->category_id,
                 'unit_id' => $product->unit_id,
                 'state_id' => $product->state_id,
+                'package_id' => $product->package_id,
+                'weight' => $product->weight,
                 'city_id' => $product->city_id,
                 'media' => $product->media->map(function ($media) {
                     return [
@@ -124,7 +132,8 @@ class ProductController extends Controller
             ],
             'categories' => $categories,
             'states' => $states,
-            'units' => $unites
+            'units' => $unites,
+            'packages' => $packages
         ]);
     }
 
@@ -139,6 +148,7 @@ class ProductController extends Controller
             'unit_id' => 'required',
             'state_id' => 'required',
             'city_id' => 'required',
+            'weight' => 'required',
             'media' => 'array|min:1',
             'media.*' => [
                 function ($attribute, $value, $fail) {
@@ -156,7 +166,7 @@ class ProductController extends Controller
             ],
         ]);
     
-        $product->update($request->only('name', 'description', 'price', 'category_id', 'unit_id', 'state_id', 'qte', 'city_id'));
+        $product->update($request->only('name', 'description', 'price', 'category_id', 'unit_id', 'state_id','weight','package_id', 'qte', 'city_id'));
     
         $existingMediaIds = $product->media->pluck('id')->toArray();
         $requestMediaIds = collect($request->media)->pluck('id')->filter()->toArray();

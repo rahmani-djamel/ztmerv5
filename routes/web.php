@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MarketController;
+use App\Http\Controllers\Dashboard\PackageController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\StateController;
@@ -88,8 +89,15 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('state')->as('state.')->middleware(['role:Vendor'])->group(function () {
         Route::get('/{stateId}/cities', [StateController::class, 'getCities'])->name('index');
+    });
 
-
+    Route::prefix('package')->as('package.')->middleware(['role:SuperAdmin'])->group(function () {
+        Route::get('/', [PackageController::class, 'index'])->name('index');
+        Route::get('/create', [PackageController::class, 'create'])->name('create');
+        Route::post('/create', [PackageController::class, 'store'])->name('store');
+        Route::get('/edit/{package}', [PackageController::class, 'edit'])->name('edit');
+        Route::patch('/update/{package}', [PackageController::class, 'update'])->name('update');
+        Route::delete('/{package}', [PackageController::class, 'destroy'])->name('destroy');
     });
 
 

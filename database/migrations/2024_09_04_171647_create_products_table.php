@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('qte')->default(0);
+            $table->decimal('weight', 10, 2);
             $table->boolean('is_active')->default(true);
             $table->decimal('price', 10, 2);
             $table->foreignId('category_id')->constrained()->onDelete('cascade');

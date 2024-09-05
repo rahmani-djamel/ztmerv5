@@ -47,13 +47,26 @@
                 <option v-for="(unit, key) in units" :key="key" :value="unit.id">{{ unit.name }}</option>
               </select>            
               <div v-if="form.errors.unit_id" class="text-red-500 text-xs mt-1">{{ form.errors.unit_id }}</div>                            
-
             </div>
+
+            <div class="mb-4">
+              <label for="city" class="block text-gray-700 dark:text-gray-300">التغليف </label>
+              <select id="state" v-model="form.package_id" class="shadow appearance-none border dark:border-gray-600 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700">
+                <option v-for="(packag, key) in packages" :key="key" :value="packag.id">{{ packag.name }}</option>
+              </select>            
+              <div v-if="form.errors.package_id" class="text-red-500 text-xs mt-1">{{ form.errors.package_id }}</div>                            
+            </div>
+
+            <div class="mb-4">
+              <label for="weight" class="block text-gray-700 dark:text-gray-300">الوزن</label>
+              <input type="number" id="weight" v-model="form.weight" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100" />
+              <div v-if="form.errors.weight" class="text-red-500 text-xs mt-1">{{ form.errors.weight }}</div>                            
+            </div>
+
             <div class="mb-4">
               <label for="qte" class="block text-gray-700 dark:text-gray-300">الكمية</label>
               <input type="number" id="qte" v-model="form.qte" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-gray-100" />
               <div v-if="form.errors.qte" class="text-red-500 text-xs mt-1">{{ form.errors.qte }}</div>                            
-
             </div>
             <div class="mb-4">
               <label for="price" class="block text-gray-700 dark:text-gray-300">السعر</label>
@@ -134,7 +147,9 @@ const form = useForm({
   unit_id: '',
   state_id: '',
   city_id: '',
+  package_id: '',
   qte: '',
+  weight: '',
   price: '',
   description: '',
   media: [],
@@ -170,6 +185,10 @@ defineProps({
     required: true,
   },
   states: {
+    type: Object,
+    required: true,
+  },
+  packages: {
     type: Object,
     required: true,
   },

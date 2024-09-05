@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Package;
 use App\Models\Unit;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
             StatesTableSeeder::class,
             CitiesTableSeeder::class,
             UnitSeeder::class,
+            PackageSeeder::class,
         ]);
     }
 }
