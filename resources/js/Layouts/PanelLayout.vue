@@ -15,9 +15,9 @@
       <Link href="/" class="flex items-center mb-4">
           <img
             v-show="isSidebarOpen"
-            :src="isDarkMode ? '/images/logo-dark.png' : '/images/logo.png'"
+            :src="'/images/logo.png'"
             alt="User Image"
-            class="w-36 h-12"
+            class="w-36 h-16"
           />
         </Link>
         <Sidebar :isSidebarOpen="isSidebarOpen" :closeSidebar="closeSidebar" class="mt-12" />
