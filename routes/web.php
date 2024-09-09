@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
 
 
-    Route::prefix('setting')->as('setting.')->middleware(['role:SuperAdmin|Vendor'])->group(function(){
+    Route::prefix('setting')->as('setting.')->group(function(){
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::post('/update/{tab}', [SettingController::class, 'update'])->name('update');
     });
