@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\MarketController;
 use App\Http\Controllers\Dashboard\PackageController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\ShippingAdress;
 use App\Http\Controllers\Dashboard\StateController;
 use App\Http\Controllers\Dashboard\UnitController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -112,6 +113,17 @@ Route::middleware('auth')->group(function () {
         Route::patch('/update/{city}', [CityController::class, 'update'])->name('update');
         Route::delete('/{city}', [CityController::class, 'destroy'])->name('destroy');
     });
+
+    Route::prefix('addresses')->as('addresses.')->middleware(['role:SuperAdmin|User'])->group(function () {
+        Route::get('/', [ShippingAdress::class, 'index'])->name('index');
+        Route::get('/create', [ShippingAdress::class, 'create'])->name('create')->middleware('role:User');
+        Route::post('/create', [ShippingAdress::class, 'store'])->name('store')->middleware('role:User');
+        Route::get('/edit/{address}', [ShippingAdress::class, 'edit'])->name('edit');
+        Route::patch('/update/{address}', [ShippingAdress::class, 'update'])->name('update');
+        Route::delete('/{address}', [ShippingAdress::class, 'destroy'])->name('destroy');
+
+    });
+
 
     
 });

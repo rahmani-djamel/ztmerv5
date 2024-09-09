@@ -80,6 +80,7 @@ const menuItems = ref([
   { name: 'المتاجر', link: '/market', icon: BuildingStorefrontIcon, component: 'Market', roles: ['SuperAdmin', 'Vendor'], permissions: ['view-markets'] },
   { name: 'المستخدمين', link: '/user', icon: UserGroupIcon, component: 'User', roles: ['SuperAdmin'], permissions: ['view-users'] },
   {name: 'المدن', link: '/city', icon: MapPinIcon, component: 'City', roles: ['SuperAdmin'], permissions: ['view-cities'] },
+  {name: 'عناوين الشحن', link: '/addresses', icon: MapPinIcon, component: 'City', roles: ['SuperAdmin','User'], permissions: ['view-cities'] },
   {name: 'وحدات الوزن', link: '/unit', icon: ScaleIcon, component: 'State', roles: ['SuperAdmin'], permissions: ['view-states'] },
   {name: 'التغليف', link: '/package', icon: GiftTopIcon, component: 'State', roles: ['SuperAdmin'], permissions: ['view-states'] },
 

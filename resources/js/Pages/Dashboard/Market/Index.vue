@@ -67,6 +67,8 @@
             </tr>
           </tbody>
         </table>
+        <Pagination :links="markets.links" />
+
       </div>
       <div v-show="isMapView">
         <GoogleMap
