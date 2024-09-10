@@ -20,7 +20,7 @@ use Inertia\Inertia;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/',[IndexController::class,'index'])->name('front.index');
-Route::get('/product/{type?}',[FrontendProductController::class,'index'])->name('front.product');
+Route::get('/products/{type?}',[FrontendProductController::class,'index'])->name('front.product');
 
 
 
