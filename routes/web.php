@@ -11,20 +11,18 @@ use App\Http\Controllers\Dashboard\ShippingAdress;
 use App\Http\Controllers\Dashboard\StateController;
 use App\Http\Controllers\Dashboard\UnitController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/',[IndexController::class,'index'])->name('front.index');
+Route::get('/{type?}',[FrontendProductController::class,'index'])->name('front.product');
+
+
 
 Route::get('/test', function () {
     return Inertia::render('Test');
@@ -33,6 +31,8 @@ Route::get('/test', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
+
+
 
 
     Route::prefix('setting')->as('setting.')->group(function(){

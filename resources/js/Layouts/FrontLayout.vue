@@ -13,6 +13,7 @@
             <div class="hidden md:flex space-x-8">
               <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المناطق</Link>
               <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">الأصناف</Link>
+              <Link :href="route('front.product')" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المنتجات</Link>
               <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المتاجر</Link>
               <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">من نحن</Link>
             </div>
@@ -39,8 +40,7 @@
         <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المناطق</Link>
         <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">الأصناف</Link>
         <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المتاجر</Link>
-        <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المفضلة</Link>
-        <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">ابدأ البيع على تمرتك</Link>
+        <Link :href="route('front.product')" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المنتجات</Link>
         <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">من نحن</Link>
         <Link href="/login" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">تسجيل الدخول</Link>
         <button @click="toggleMobileMenu" class="text-gray-800 dark:text-white p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
