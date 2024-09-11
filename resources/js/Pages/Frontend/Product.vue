@@ -87,7 +87,7 @@ onMounted(() => {
   });
 
   watch([search,selectedcategory], function (value) {    
-  router.visit('/dates', {
+  router.visit('/products', {
     method: 'get',
     replace: true,
     preserveState: true,
