@@ -1,53 +1,82 @@
 <template>
-    <FrontLayout>
-      <div class="container mx-auto max-w-7xl px-4 py-8">
+  <Head title="المنتجات" />
+  <FrontLayout>
+    <div class="container mx-auto max-w-7xl px-4 py-8">
 
-        <!--filter and search-->
-        <div class="container mx-auto max-w-7xl px-4 py-8 bg-white rounded shadow-md mb-4 dark:bg-gray-800">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                <input type="text" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="إسم المنتج">
-                <select class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="">Select Option 1</option>
-                    <!-- Add more options as needed -->
-                </select>
-                <select class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="">Select Option 2</option>
-                    <!-- Add more options as needed -->
-                </select>
-                <button class="rounded-md shadow-sm bg-blue-500 text-white px-4 py-2">
-                    بحث
-                </button>
+      <!--filter and search-->
+      <div class="container mx-auto max-w-7xl px-4 py-8 bg-white rounded shadow-md mb-4 dark:bg-gray-800">
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            <div class="flex flex-col">
+              <label for="" class="mb-2">
+                  البحث
+              </label>
+              <input type="text" v-model="search" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:focus:border-indigo-500 dark:focus:ring-indigo-500 dark:focus:ring-opacity-50" placeholder="إسم المنتج">
+
+
             </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-        <ProductCard v-for="product in products.data" :key="product" :product="product"  />
-        </div>
-
-  
-
+              <div class="flex flex-col">
+                  <label for="" class="mb-2">
+                       الصنف
+                  </label>
+                  <select v-model="selectedcategory" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:focus:border-indigo-500 dark:focus:ring-indigo-500 dark:focus:ring-opacity-50">
+                      <option value="">
+                          الكل
+                      </option>
+                      <option v-for="category in categories" :value="category.id" :key="category.id">
+                          {{ category.name }}
+                      </option>
+                      <!-- Add more options as needed -->
+                  </select>
+              </div>
+              <div class="flex flex-col">
+                  <label for="" class="mb-2">
+                      ترتيب حسب
+                  </label>
+                  <select class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:focus:border-indigo-500 dark:focus:ring-indigo-500 dark:focus:ring-opacity-50">
+                      <option value="">
+                          اقل سعر
+                      </option>
+                      <option value="">
+                          أكبر سعر
+                      </option>
+                      <!-- Add more options as needed -->
+                  </select>
+              </div>
+          </div>
       </div>
-    </FrontLayout>
-  </template>
+
+      <div class="grid grid-cols-1 lg:grid-cols-4 space-x-4 ">
+        <ProductCard v-for="product in products.data" :key="product.id" :product="product" />
+      </div>
+    
+      <Pagination :links="products.links" />
+    </div>
+
+  </FrontLayout>
+</template>
   
   <script setup>
+  import { ref, watch,onMounted } from 'vue';
   import FrontLayout from '@/Layouts/FrontLayout.vue';
-  import { onMounted } from 'vue';
+  import { Head } from '@inertiajs/vue3';
+  import { router } from '@inertiajs/vue3';
+  import Pagination from '@/Components/Helper/Pagination.vue';
+  import ProductCard from '@/Components/Frontend/ProductCard.vue';
   import Swiper from 'swiper/bundle';
   import 'swiper/swiper-bundle.css';
-  import { ShoppingCartIcon } from '@heroicons/vue/24/solid';
-  import ProductCard from '@/Components/Frontend/ProductCard.vue';
-  import { usePage } from '@inertiajs/vue3';
-  import { ref } from 'vue';
-
-  const page = usePage();
-
-  const products = ref(page.props.products);
-
   
-  onMounted(() => {
-    console.log(products.value);
-    
+  let props = defineProps({
+  products: Object,
+  categories: Object,
+  vendors: Object,
+  can: Object,
+  filters: Object,
+});
+  
+let search = ref(props.filters.search);
+let selectedcategory = ref(props.filters.selectedcategory);
+
+onMounted(() => {    
     new Swiper('.swiper-container', {
       loop: true,
       pagination: {
@@ -56,8 +85,16 @@
       },
     });
   });
+
+  watch([search,selectedcategory], function (value) {    
+  router.visit('/dates', {
+    method: 'get',
+    replace: true,
+    preserveState: true,
+    data: {
+      search: search.value,
+      selectedcategory: selectedcategory.value,
+    },
+  });
+}, 300);
   </script>
-  
-  <style scoped>
-  /* Add any additional styling here */
-  </style>

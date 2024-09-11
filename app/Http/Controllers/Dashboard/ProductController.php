@@ -26,7 +26,7 @@ class ProductController extends Controller
             ->orderBy('created_at', 'desc')
             ->role();
     
-        $products = $productsQuery->paginate(10)->withQueryString()->through(fn ($product) => [
+        $products = $productsQuery->paginate(1)->withQueryString()->through(fn ($product) => [
             'id' => $product->id,
             'name' => $product->name,
             'description' => $product->description,

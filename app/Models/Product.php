@@ -82,6 +82,17 @@ class Product extends Model
             return $category ? $query->where('category_id', $category) : $query;
         }
 
+        public function scopeOrderByPrice($query, $order)
+        {
+            if ($order === 'low_to_high') {
+                return $query->orderBy('price', 'asc');
+            } elseif ($order === 'high_to_low') {
+                return $query->orderBy('price', 'desc');
+            }
+
+            return $query;
+        }
+
         //scope get products based on vendor
         public function scopeVendorfilter($query, $vendor)
         {
