@@ -32,11 +32,14 @@
                   <label for="" class="mb-2">
                       ترتيب حسب
                   </label>
-                  <select class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:focus:border-indigo-500 dark:focus:ring-indigo-500 dark:focus:ring-opacity-50">
-                      <option value="">
+                  <select v-model="order_by" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:focus:border-indigo-500 dark:focus:ring-indigo-500 dark:focus:ring-opacity-50">
+                    <option value="">
+                        الافتراضي
+                    </option>  
+                    <option value="low_to_high">
                           اقل سعر
                       </option>
-                      <option value="">
+                      <option value="high_to_low">
                           أكبر سعر
                       </option>
                       <!-- Add more options as needed -->
@@ -75,6 +78,8 @@
   
 let search = ref(props.filters.search);
 let selectedcategory = ref(props.filters.selectedcategory);
+let order_by = ref(props.filters.order_by);
+
 
 onMounted(() => {    
     new Swiper('.swiper-container', {
@@ -86,7 +91,7 @@ onMounted(() => {
     });
   });
 
-  watch([search,selectedcategory], function (value) {    
+  watch([search,selectedcategory,order_by], function (value) {    
   router.visit('/products', {
     method: 'get',
     replace: true,
@@ -94,6 +99,7 @@ onMounted(() => {
     data: {
       search: search.value,
       selectedcategory: selectedcategory.value,
+      order_by: order_by.value,
     },
   });
 }, 300);

@@ -14,6 +14,7 @@ class ProductController extends Controller
     {
         $productsQuery = Product::query()
             ->search(request('search'))
+            ->orderByPrice(request('order_by'))
             ->categoryfilter(request('selectedcategory')); //
 
         $products = $productsQuery->paginate(10)->withQueryString()->through(fn ($product) => [
