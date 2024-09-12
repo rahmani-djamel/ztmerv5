@@ -12,6 +12,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'price',
         'qte',
@@ -97,6 +98,12 @@ class Product extends Model
         public function scopeVendorfilter($query, $vendor)
         {
             return $vendor ? $query->where('user_id', $vendor) : $query;
+        }
+
+        //scope products based on city
+        public function scopeCityfilter($query, $city)
+        {
+            return $city ? $query->where('city_id', $city) : $query;
         }
 
 

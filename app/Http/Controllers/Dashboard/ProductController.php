@@ -12,6 +12,7 @@ use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Illuminate\Support\Str; // Add this line to import the Str class
 
 
 class ProductController extends Controller
@@ -80,9 +81,17 @@ class ProductController extends Controller
             'media' => 'required|array|min:1',
             'media.*.file' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:6144', // 6144 KB = 6 MB
         ]);
+
+        $name = $request->get('name');
+        $slug = Str::slug($name);
+        $uniqueSlug = $slug . '-' . Str::random(5);
+
+
+        $productData = $request->only('name', 'description', 'price', 'category_id', 'unit_id', 'state_id', 'weight', 'package_id', 'qte', 'city_id');
+        $productData['slug'] = $uniqueSlug;
         
-        $product = auth()->user()->products()->create($request->only('name', 'description', 'price', 'category_id', 'unit_id', 'state_id','weight','package_id', 'qte','city_id'));
-        
+        $product = auth()->user()->products()->create($productData);
+
         foreach ($request->media as $key => $media) {
             $file = $media['file'];
             $path = $file->store('products', 'public');

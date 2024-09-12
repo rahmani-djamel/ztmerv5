@@ -11,8 +11,8 @@
           </div>
           <!-- Menu Items -->
           <div class="hidden md:flex space-x-8">
-            <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المناطق</Link>
-            <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">الأصناف</Link>
+            <Link :href="route('front.states.index')" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المناطق</Link>
+            <Link :href="route('front.categories.index')" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">الأصناف</Link>
             <Link :href="route('front.product')" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المنتجات</Link>
             <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المتاجر</Link>
             <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">من نحن</Link>
@@ -41,8 +41,8 @@
 
     <!-- Mobile Menu -->
     <div v-if="mobileMenuOpen" class="fixed inset-0 bg-white dark:bg-gray-800 z-50 flex flex-col items-center justify-center space-y-6">
-      <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المناطق</Link>
-      <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">الأصناف</Link>
+      <Link :href="route('front.states.index')" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المناطق</Link>
+      <Link :href="route('front.categories.index')" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">الأصناف</Link>
       <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المتاجر</Link>
       <Link :href="route('front.product')" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">المنتجات</Link>
       <Link href="#" class="text-gray-800 dark:text-white hover:border-b-2 border-blue-500">من نحن</Link>

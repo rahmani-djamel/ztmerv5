@@ -40,7 +40,7 @@ class ProductController extends Controller
         return Inertia::render('Frontend/Product', [
             'products' => $products,
             'categories' => Category::all(),
-            'filters' => request()->all(['search','selectedcategory']),
+            'filters' => request()->all(['search','selectedcategory','order_by']),
         ]);
     }
 }

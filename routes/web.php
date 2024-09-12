@@ -11,16 +11,34 @@ use App\Http\Controllers\Dashboard\ShippingAdress;
 use App\Http\Controllers\Dashboard\StateController;
 use App\Http\Controllers\Dashboard\UnitController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Frontend\CategoriesController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\Frontend\StatesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/',[IndexController::class,'index'])->name('front.index');
-Route::get('/products',[FrontendProductController::class,'index'])->name('front.product');
+
+Route::as('front.')->group(function(){
+    Route::get('/',[IndexController::class,'index'])->name('index');
+    Route::get('/products',[FrontendProductController::class,'index'])->name('product');
+
+    Route::prefix('categories')->as('categories.')->group(function(){
+        Route::get('/', [CategoriesController::class, 'index'])->name('index');
+        Route::get('/{category}', [CategoriesController::class, 'show'])->name('show');
+    });
+
+    Route::prefix('states')->as('states.')->group(function(){
+        Route::get('/', [StatesController::class, 'index'])->name('index');
+        Route::get('/{state}', [StatesController::class, 'show'])->name('show');
+    });
+});
+
+
+
 
 
 

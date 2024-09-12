@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 class StatesTableSeeder extends Seeder
 {
@@ -28,6 +30,12 @@ class StatesTableSeeder extends Seeder
             ['name' => 'الباحة'],
             ['name' => 'الجوف'],
         ];
+
+        foreach ($states as &$state) {
+            $state['slug'] = Str::slug($state['name']) . '-' . Str::random(5);
+        }
+
+        
 
         DB::table('states')->insert($states);
     }

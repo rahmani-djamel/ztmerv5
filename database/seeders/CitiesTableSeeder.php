@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 class CitiesTableSeeder extends Seeder
 {
@@ -113,6 +115,10 @@ class CitiesTableSeeder extends Seeder
             ['name' => 'المبرز', 'state_id' => 4],
         ];
 
-        DB::table('cities')->insert($cities);
+        foreach ($cities as &$city) {
+            $city['slug'] = Str::slug($city['name']) . '-' . Str::random(5);
+        }
+
+        DB::table('cities')->insert($cities);    
     }
 }

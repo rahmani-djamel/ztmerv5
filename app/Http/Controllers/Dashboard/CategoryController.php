@@ -47,11 +47,14 @@ class CategoryController extends Controller
             'image' => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg', 'max:5120'], 
         ]);
 
-        $slug = Str::slug(Request::input('name'));
+        $name = Request::input('name');
+        $slug = Str::slug($name);
+        $uniqueSlug = $slug . '-' . Str::random(5);
+
 
         $category = Category::create([
-            'name' => Request::input('name'),
-            'slug' => $slug,
+            'name' => $name,
+            'slug' => $uniqueSlug,
         ]);
 
 
@@ -90,11 +93,14 @@ class CategoryController extends Controller
             'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg', 'max:5120'], 
         ]);
 
-        $slug = Str::slug(Request::input('name'));
+        $name = Request::input('name');
+        $slug = Str::slug($name);
+        $uniqueSlug = $slug . '-' . Str::random(5);
+
 
         $category->update([
             'name' => Request::input('name'),
-            'slug' => $slug,
+            'slug' => $uniqueSlug,
         ]);
 
         if (Request::hasFile('image')) {

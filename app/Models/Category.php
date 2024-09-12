@@ -27,6 +27,11 @@ class Category extends Model
         return $this->morphOne(File::class, 'fileable');    
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 
 
 
