@@ -7,7 +7,9 @@
         <div class="flex items-center space-x-6">
           <!-- Logo -->
           <div class="text-xl font-bold text-gray-800 dark:text-white ml-6">
-            <img src="/images/logo.png" alt="Logo" class="h-8">
+            <Link href="/" >
+              <img src="/images/logo.png" alt="Logo" class="h-8">
+            </Link>
           </div>
           <!-- Menu Items -->
           <div class="hidden md:flex space-x-8">
